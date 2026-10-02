@@ -1,0 +1,45 @@
+{
+  "name": "@hathq/hatter-console",
+  "version": "0.10.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "pnpm": ">=10 <11"
+  },
+  "scripts": {
+    "build": "node scripts/build-delivery.mjs && node scripts/stage-projection-runtime.mjs && node scripts/build-launcher.mjs && node scripts/verify-build-budget.mjs",
+    "release:stage": "node scripts/stage-release.mjs",
+    "release:verify": "node scripts/verify-release.mjs",
+    "size:verify": "node scripts/verify-build-budget.mjs",
+    "start": "./bin/hatter-console",
+    "test": "node --test test/*.test.mjs",
+    "test:e2e": "node test/product-root-browser.mjs"
+  },
+  "dependencies": {
+    "@hathq/delivery-server": "file:../../../../../../../.artifacts/npm/6a4c339e0195038ef6857d5b04f2357c676a4eafbeb259c601d0e43b7cd75a9a/hathq-delivery-server-0.10.0.tgz",
+    "@hathq/delivery-client": "file:../../../../../../../.artifacts/npm/40d25e933ca5d2450c51a12f069742aba72ed873a69d1753f590adc8f3e9033a/hathq-delivery-client-0.10.0.tgz",
+    "@hathq/delivery-contracts": "file:../../../../../../../.artifacts/npm/d3e601ba35459a8c6e88812a18f02846a3504582625179ba48d51760b45b82cb/hathq-delivery-contracts-0.10.0.tgz",
+    "@hathq/dom-renderer": "file:../../../../../../../.artifacts/npm/27afd781fe75ac2e520c49ca434af08444f6aed01f9bd24a17a5891d7b125cff/hathq-dom-renderer-0.10.0.tgz",
+    "@hathq/projection-contracts": "file:../../../../../../../.artifacts/npm/cf89d5f46ee58a29c7a4d502eeee4435dbb95f33e1f48a93d6aeab5e0a22f852/hathq-projection-contracts-0.10.0.tgz",
+    "@hathq/projection-client": "file:../../../../../../../.artifacts/npm/873337c02064be02c18448bf0fb294aec7b4a8642a23f762106af6368329fbf7/hathq-projection-client-0.10.0.tgz",
+    "@hathq/projection-runtime": "file:../../../../../../../.artifacts/npm/47faec2541e8ca615d70e4cf9ad5e35d937c52e5be9cbb2e88ab130d2ab9d937/hathq-projection-runtime-0.10.0.tgz",
+    "@crowsi/transport-foundation": "file:../../../../../../../.artifacts/npm/1b5ec6b8afacdc64987d8d2c4bb88a9c42e3a88e928c05dce97480d0a24e83d6/crowsi-transport-foundation-0.10.0.tgz",
+    "@crowsi/browser-security": "file:../../../../../../../.artifacts/npm/84e72b71616d5f5507518e09129c26546851cad3045f14e7034f32cb5fb89581/crowsi-browser-security-0.10.0.tgz",
+    "@zixcel/interaction": "file:../../../../../../../.artifacts/npm/1c2d6e15a4212e2459887589f3e79781a9902f0ebbf44f12dc76bd75e82efa66/zixcel-interaction-0.10.0.tgz",
+    "@hathq/ihat-store-core": "file:../../../../../../../.artifacts/npm/c2348172aec62db7bba5463a22a90f98a5332a74645205be308e8cb7e282d344/hathq-ihat-store-core-0.10.0.tgz",
+    "@hathq/ihat-store-source": "file:../../../../../../../.artifacts/npm/fe2fa895e5830ebd417c57567f5b4b36b39da5950863a040564d4a57711757a8/hathq-ihat-store-source-0.10.0.tgz",
+    "@hathq/ihat-store-scenes": "file:../../../../../../../.artifacts/npm/94a6dcbe71385ce3bfeea26b3f1f1f410acb2c9355b3a3afcd3432d63de997ec/hathq-ihat-store-scenes-0.10.0.tgz"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "esbuild": "0.28.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "description": "Hatter-owned framework-neutral Scene delivery site"
+}

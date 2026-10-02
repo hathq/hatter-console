@@ -1,0 +1,11 @@
+{
+  "schema": "hathq://hatter-console/protocol-snapshot/v1",
+  "source": "Derived from current Hatter Rust Request + METHODS; params validation belongs to runtime handlers.",
+  "representation": "jsonl-request-envelope",
+  "files": {
+    "json/ClientRequest.json": "sha256:4e351c1696a9ed6993c68566f2657d9f7fac51570f224555cb4d3362d38fc604",
+    "json/ModelListResponse.json": "sha256:c5a8ad50c02db0280e41392cdd8a2b1611aa5e562a7b4eb36a1a71cdcad62475",
+    "json/CanonicalClientRequest.json": "sha256:f5fb19d166646cf173a4aee13d647f3c0eb556278aa6cdfd1cd9a42bcf232d1c",
+    "typescript/ClientRequest.ts": "sha256:10cb184413572db6580075b3c8ab685759a5c650d5d78d68a6ddec95931a1f03"
+  }
+}

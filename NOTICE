@@ -1,0 +1,11 @@
+Hatter Console
+Copyright 2026 the Hatter contributors
+
+Hatter Console is distributed under the Apache License, Version 2.0.
+Combined Hatter generations include the Hatter license and attribution in
+licenses/hatter. Direct UI framework and icon licenses are preserved under
+licenses/nuxt-ui, licenses/nuxt-icon, licenses/tailwindcss, and licenses/iconify-lucide.
+
+hatter-console
+Copyright 2026 HAT Inc.
+See LICENSE for the selected terms. Prior grants and third-party licenses retain their respective terms.

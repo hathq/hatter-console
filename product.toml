@@ -1,0 +1,18 @@
+schema_id = "hathq-product-v1"
+product_id = "hatter-console"
+owner = "hathq"
+service = "hatter"
+kind = "owner-local-user-interface"
+visibility = "private"
+
+[runtime]
+listen_host = "127.0.0.1"
+listen_port = 4213
+state_authority = "hatter-canonical-owners"
+credential_persistence = "process-ephemeral"
+database = false
+
+[dependencies]
+hatter_contract = "management-jsonl"
+delivery_contract = "hatter/delivery/1"
+renderer = "hathq-dom-renderer"

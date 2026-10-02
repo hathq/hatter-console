@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hatter-console/hat-discovery/v1",
+  "title": "Owner-facing HAT discovery projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "reason", "candidateSource", "sourceId", "sourceLabel", "sourceKind", "logicalOrigin", "genreSource", "artifactAcquisitionAvailable", "catalogDigestSha256", "candidates", "genres"],
+  "properties": {
+    "schema": { "const": "hathq://hatter-console/hat-discovery/v1" },
+    "status": { "enum": ["available", "unavailable"] },
+    "reason": { "type": ["string", "null"], "maxLength": 128 },
+    "candidateSource": { "const": "signed-catalog" },
+    "sourceId": { "anyOf": [{ "$ref": "#/$defs/token" }, { "type": "null" }] },
+    "sourceLabel": { "type": ["string", "null"], "maxLength": 100 },
+    "sourceKind": { "enum": ["https", "local_directory", null] },
+    "logicalOrigin": { "type": ["string", "null"], "maxLength": 2048 },
+    "genreSource": { "const": "hat-information-coordinate.data_domain_term_id" },
+    "artifactAcquisitionAvailable": { "type": "boolean" },
+    "catalogDigestSha256": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+    "candidates": {
+      "type": "array",
+      "maxItems": 128,
+      "items": { "$ref": "#/$defs/candidate" }
+    },
+    "genres": {
+      "type": "array",
+      "maxItems": 32,
+      "items": { "$ref": "#/$defs/genre" }
+    }
+  },
+  "$defs": {
+    "token": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,94}[a-z0-9])?$" },
+    "handle": { "type": "string", "pattern": "^[A-Za-z0-9_-]{16,128}$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handle", "repositoryId", "packageId", "version", "packageSha256", "name", "summary", "genreHandle", "genreLabel", "assurance", "residenceScopes", "availability", "updateState"],
+      "properties": {
+        "handle": { "$ref": "#/$defs/handle" },
+        "repositoryId": { "$ref": "#/$defs/token" },
+        "packageId": { "type": "string", "pattern": "^hat/[a-z0-9][a-z0-9-]{0,95}$" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "packageSha256": { "$ref": "#/$defs/digest" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "genreHandle": { "$ref": "#/$defs/handle" },
+        "genreLabel": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "assurance": { "enum": ["official", "source-pinned"] },
+        "residenceScopes": {
+          "type": "array",
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z]{2}(?:-[A-Z0-9]{1,3})?$" }
+        },
+        "availability": { "enum": ["installable", "installed", "unavailable", "revoked"] },
+        "updateState": { "enum": ["current", "available", "not-installed", "blocked"] }
+      }
+    },
+    "genre": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handle", "categoryId", "termId", "label", "summary", "installedHatCount", "availableHatCount"],
+      "properties": {
+        "handle": { "$ref": "#/$defs/handle" },
+        "categoryId": { "$ref": "#/$defs/token" },
+        "termId": { "type": "string", "pattern": "^hathq://vocabulary/data-domain/[a-z0-9][a-z0-9-]*/v[1-9][0-9]*$" },
+        "label": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "installedHatCount": { "type": "integer", "minimum": 0, "maximum": 128 },
+        "availableHatCount": { "type": "integer", "minimum": 0, "maximum": 128 }
+      }
+    }
+  }
+}

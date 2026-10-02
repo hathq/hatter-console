@@ -1,0 +1,50 @@
+#!/bin/sh
+set -eu
+# Hatter R1: per-process descriptor budget, inherited by delivery and children.
+# Never raise a stricter inherited limit; no system-wide or privileged change.
+HATTER_DESCRIPTOR_LIMIT=$(ulimit -n)
+case "$HATTER_DESCRIPTOR_LIMIT" in
+  unlimited) ulimit -n 1024 ;;
+  *) if [ "$HATTER_DESCRIPTOR_LIMIT" -gt 1024 ]; then ulimit -n 1024; fi ;;
+esac
+umask 077
+PATH='/usr/bin:/bin'
+export PATH
+SELF_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+LAUNCH_CWD=$(pwd -P)
+HOME_VALUE=${HOME:-}
+case "$HOME_VALUE" in /*) ;; *) printf '%s\n' 'hatter-console-home-invalid' >&2; exit 78 ;; esac
+HATTER_HOME_VALUE=${HATTER_HOME:-"$HOME_VALUE/.hatter/agent"}
+case "$HATTER_HOME_VALUE" in /*) ;; *) printf '%s\n' 'hatter-console-home-invalid' >&2; exit 78 ;; esac
+# A configured missing home is not an empty canonical store. Refuse before
+# starting delivery; explicit metadata setup remains the CLI owner's operation.
+if [ ! -d "$HATTER_HOME_VALUE" ]; then
+  printf '%s\n' 'hatter-console-home-invalid' \
+    'Run hatter state initialize with the same HATTER_HOME, then start hatter again.' >&2
+  exit 78
+fi
+NODE=${HATTER_CONSOLE_NODE_EXECUTABLE:-}
+case "$NODE" in /*) ;; *) printf '%s\n' 'hatter-console-node-invalid' >&2; exit 78 ;; esac
+[ -f "$NODE" ] && [ -x "$NODE" ] && [ ! -L "$NODE" ] || exit 78
+[ "$(readlink -f -- "$NODE")" = "$NODE" ] || exit 78
+OWNER=$(stat -c '%u' -- "$NODE")
+CURRENT_UID=$(id -u)
+[ "$OWNER" = '0' ] || [ "$OWNER" = "$CURRENT_UID" ] || exit 78
+MODE=$(stat -c '%a' -- "$NODE")
+[ $((0$MODE & 0022)) -eq 0 ] || exit 78
+VERSION=$(/usr/bin/env -i PATH='/usr/bin:/bin' HOME="$HOME_VALUE" \
+  "$NODE" -p 'process.versions.node')
+case "$VERSION" in 22.*|24.*) ;; *) printf '%s\n' 'hatter-console-node-version-rejected' >&2; exit 78 ;; esac
+exec /usr/bin/env -i PATH='/usr/bin:/bin' HOME="$HOME_VALUE" HATTER_HOME="$HATTER_HOME_VALUE" \
+  LANG='C.UTF-8' LC_ALL='C.UTF-8' HATTER_CONSOLE_NODE_EXECUTABLE="$NODE" \
+  HATTER_CLI_EXECUTABLE="${HATTER_CLI_EXECUTABLE:-}" \
+  HATTER_CLI_EXECUTABLE_SHA256="${HATTER_CLI_EXECUTABLE_SHA256:-}" \
+  HATTER_CONSOLE_HANDOFF_VERSION="${HATTER_CONSOLE_HANDOFF_VERSION:-}" \
+  HATTER_CONSOLE_HANDOFF_ACTIVE="${HATTER_CONSOLE_HANDOFF_ACTIVE:-}" \
+  HATTER_CROWSI_CREDENTIAL_AGENT_AVAILABLE="${HATTER_CROWSI_CREDENTIAL_AGENT_AVAILABLE:-0}" \
+  HATTER_CROWSI_CREDENTIAL_AGENT_EXECUTABLE="${HATTER_CROWSI_CREDENTIAL_AGENT_EXECUTABLE:-}" \
+  HATTER_CONSOLE_PROFILE="${HATTER_CONSOLE_PROFILE:-}" \
+  HATTER_OWNER_LOCAL_PROVIDER_TOKEN="${HATTER_OWNER_LOCAL_PROVIDER_TOKEN:-}" \
+  HATTER_LAUNCH_CWD="$LAUNCH_CWD" \
+  HATTER_MANAGEMENT_ENDPOINT="${HATTER_MANAGEMENT_ENDPOINT:-}" \
+  "$NODE" "$SELF_DIR/hatter-console.mjs"

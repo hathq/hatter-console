@@ -1,0 +1,340 @@
+{
+  "modification": "Hatter 2026: exact running-owner storage setup; remaining legacy interface inventory is not final delivery acceptance",
+  "schema": "hathq://hatter/user-interface/v1",
+  "product": "hatter",
+  "interfaces": [
+    { "id": "cli", "label": "Hatter CLI", "status": "stable" },
+    { "id": "web", "label": "Hatter Web", "status": "stable" }
+  ],
+  "operations": [
+    {
+      "id": "inference.role.list",
+      "label": "List current runtime roles",
+      "cli": "hatter inference roles",
+      "webPath": "/",
+      "webAction": "Show available people in the World from exact current runtime role references"
+    },
+    {
+      "id": "inference.role.memory",
+      "label": "Inspect role memory",
+      "cli": "hatter inference memory --request-json <JSON>",
+      "webPath": "/",
+      "webAction": "Show short-term observations and explicitly promoted long-term context in the selected person's Memory and senses view"
+    },
+    {
+      "id": "storage.initialize",
+      "label": "Prepare empty local storage",
+      "cli": "hatter storage --request-json <JSON>",
+      "webPath": "/system",
+      "webAction": "Prepare control, HAT or semantic storage through storage/execute; no semantic data or permissions are invented"
+    },
+    {
+      "id": "instance.status",
+      "label": "端末状態を確認する",
+      "cli": "hatter instance status",
+      "webPath": "/system/instance",
+      "webAction": "旧起動markerの互換診断"
+    },
+    {
+      "id": "account.authenticate",
+      "label": "ChatGPTで認証する",
+      "cli": "hatter login",
+      "webPath": "/account",
+      "webAction": "ChatGPTで認証してCodexを有効化"
+    },
+    {
+      "id": "account.status",
+      "label": "認証状態を確認する",
+      "cli": "hatter login status",
+      "webPath": "/account",
+      "webAction": "認証状態"
+    },
+    {
+      "id": "account.logout",
+      "label": "ログアウトする",
+      "cli": "hatter logout",
+      "webPath": "/account",
+      "webAction": "ログアウト"
+    },
+    {
+      "id": "models.inspect",
+      "label": "モデルを確認する",
+      "cli": "hatter models",
+      "webPath": "/models",
+      "webAction": "モデルと利用量"
+    },
+    {
+      "id": "models.providers.inspect",
+      "label": "設定済み推論プロバイダーを確認する",
+      "cli": "hatter models providers",
+      "webPath": "/models",
+      "webAction": "推論プロバイダーを選択してモデルを確認"
+    },
+    {
+      "id": "inference.status",
+      "label": "Hatterの推論エンジン状態を確認する",
+      "cli": "hatter inference status",
+      "webPath": "/system/codex",
+      "webAction": "認証・モデル・稼働・実測トレースを確認"
+    },
+    {
+      "id": "models.routes.read",
+      "label": "HAT操作に割り当てたモデル経路を確認する",
+      "cli": "hatter models routes",
+      "webPath": "/models",
+      "webAction": "モデル経路を確認"
+    },
+    {
+      "id": "models.routes.write",
+      "label": "HAT操作へアカウントとモデルを割り当てる",
+      "cli": "hatter models route-set --route-id <ID> --provider-id <ID> [--account-handle <HANDLE>] --model-id <ID> --reasoning-effort <EFFORT> --repository-id <ID> --operation-id <ID> --expected-revision <REV>",
+      "webPath": "/models",
+      "webAction": "選択したHAT操作のモデル経路を保存"
+    },
+    {
+      "id": "models.routes.remove",
+      "label": "HAT操作のモデル経路を解除する",
+      "cli": "hatter models route-remove --route-id <ID> --expected-revision <REV>",
+      "webPath": "/models",
+      "webAction": "モデル経路を解除"
+    },
+    {
+      "id": "hat.catalog.list",
+      "label": "iHATの公式HATを確認する",
+      "cli": "hatter hat catalog --locale ja",
+      "webPath": "/hats",
+      "webAction": "カテゴリ別に公式HATを表示"
+    },
+    {
+      "id": "hat.catalog.install",
+      "label": "iHATの公式HATを導入する",
+      "cli": "hatter hat install-official --repository-id <ID>",
+      "webPath": "/hats",
+      "webAction": "公式HATを導入"
+    },
+    {
+      "id": "hat.catalog.preview",
+      "label": "導入前にHATの目的と操作を確認する",
+      "cli": "hatter hat catalog-preview --repository-id <ID>",
+      "webPath": "/hats/:repositoryId",
+      "webAction": "署名済みpackage manifestを確認"
+    },
+    {
+      "id": "hat.install.local",
+      "label": "ローカルパスから署名済みHATを導入する",
+      "cli": "hatter hat install-local --repository-id <ID> --path <ABSOLUTE_PATH>",
+      "webPath": "/system/hats/install",
+      "webAction": "ローカルパスから導入"
+    },
+    {
+      "id": "hat.install.ip",
+      "label": "IPアドレスから署名済みHATを導入する",
+      "cli": "hatter hat install-ip --repository-id <ID> --ip-address <IP> --port <PORT> --public-key-hex <HEX>",
+      "webPath": "/system/hats/install",
+      "webAction": "IPアドレスから導入"
+    },
+    {
+      "id": "hat.package.read",
+      "label": "導入済みHATを確認する",
+      "cli": "hatter hat package --repository-id <ID>",
+      "webPath": "/system/hats/bindings",
+      "webAction": "導入状態を確認"
+    },
+    {
+      "id": "hat.binding.write",
+      "label": "HATを主体とScopeへbindする",
+      "cli": "hatter hat bind --repository-id <ID> --policy-digest <SHA256> --fitting-digest <SHA256> --subject-ref <REF> --scope-ref <REF>",
+      "webPath": "/system/hats/bindings",
+      "webAction": "HATをbind"
+    },
+    {
+      "id": "hat.binding.read",
+      "label": "派生context partitionのHAT bindを確認する",
+      "cli": "hatter hat binding --context-partition-id <ID> --repository-id <ID>",
+      "webPath": "/system/hats/bindings",
+      "webAction": "bind状態"
+    },
+    {
+      "id": "hat.composition.prepare",
+      "label": "明示したHAT候補から構成提案を作る",
+      "cli": "hatter hat composition-prepare --request-json <PATH>",
+      "webPath": "/system/hats/composition",
+      "webAction": "選択内容を検証して構成提案を確認"
+    },
+    {
+      "id": "hat.composition.approve",
+      "label": "複数HATの構成全体を承認する",
+      "cli": "hatter hat composition-approve --proposal-json <PATH> --approval-json <PATH>",
+      "webPath": "/system/hats/composition",
+      "webAction": "選択したHAT構成全体を承認"
+    },
+    {
+      "id": "hat.composition.read",
+      "label": "主体とScopeの現在のHAT構成を確認する",
+      "cli": "hatter hat composition-read --subject-ref <REF> --scope-ref <REF>",
+      "webPath": "/system/hats/composition",
+      "webAction": "承認済み構成を表示"
+    },
+    {
+      "id": "hat.binding.remove",
+      "label": "HATのbindを無効化する",
+      "cli": "hatter hat unbind --context-partition-id <ID> --repository-id <ID> --expected-revision <REV>",
+      "webPath": "/system/hats/bindings",
+      "webAction": "bindを無効化"
+    },
+    {
+      "id": "hat.placement.read",
+      "label": "HATの実行場所を確認する",
+      "cli": "hatter hat placement-read --context-partition-id <ID> --repository-id <ID>",
+      "webPath": "/system/hats/bindings",
+      "webAction": "選択済みlocationと論理routeを確認"
+    },
+    {
+      "id": "hat.worker.read",
+      "label": "HAT workerの接続状態を確認する",
+      "cli": "hatter hat worker-read --context-partition-id <ID> --repository-id <ID>",
+      "webPath": "/system/hats/bindings",
+      "webAction": "worker状態"
+    },
+    {
+      "id": "hat.worker.unregister",
+      "label": "HAT worker leaseを解除する",
+      "cli": "hatter hat worker-unregister --context-partition-id <ID> --repository-id <ID> --worker-id <ID> --expected-revision <REV>",
+      "webPath": "/system/hats/bindings",
+      "webAction": "workerを解除"
+    },
+    {
+      "id": "hat.projection-journal.read",
+      "label": "HAT effectのprojection revision journalを確認する",
+      "cli": "hatter hat projection-journal --context-partition-id <ID> --package-id <ID> --from-revision <REV>",
+      "webPath": "/system/hats/projection-journal",
+      "webAction": "Projection journal"
+    },
+    {
+      "id": "hat.capabilities.list",
+      "label": "導入済みHATの語彙と操作状態を確認する",
+      "cli": "hatter hat commands",
+      "webPath": "/capabilities",
+      "webAction": "HATが提供する操作と利用可能性を表示"
+    },
+    {
+      "id": "hat.continuity.read",
+      "label": "鍵・端末・HAT・workerの継続状態を確認する",
+      "cli": "hatter hat continuity",
+      "webPath": "/system/continuity",
+      "webAction": "復旧・移動・再登録の判定を表示"
+    },
+    {
+      "id": "hat.setup.list",
+      "label": "導入済みHATの初期設定を確認する",
+      "cli": "hatter hat setup",
+      "webPath": "/",
+      "webAction": "Action FlowのTODOとして初期設定を表示"
+    },
+    {
+      "id": "hat.actionplan.list",
+      "label": "複数ステップの操作案と承認状態を確認する",
+      "cli": "hatter hat action-plan-list",
+      "webPath": "/workflows",
+      "webAction": "保存済みのAction Planを表示"
+    },
+    {
+      "id": "hat.actionplan.write",
+      "label": "HAT操作を共通契約で組み合わせて提案する",
+      "cli": "hatter hat action-plan-write --plan-json <PATH>",
+      "webPath": "/workflows",
+      "webAction": "入出力契約を確認して複数ステップを保存"
+    },
+    {
+      "id": "hat.actionplan.approve",
+      "label": "保存済み操作案を所有者判断で承認する",
+      "cli": "hatter hat action-plan-approve --plan-id <ID> --expected-revision <REV> --owner-decision-id <ID>",
+      "webPath": "/workflows",
+      "webAction": "選択したAction Planを明示承認"
+    },
+    {
+      "id": "hat.invocation.invoke",
+      "label": "HAT actionを派生context partition laneへ投入する",
+      "cli": "hatter hat run <REPOSITORY_ID> <OPERATION_ID> --invocation-json <PATH>",
+      "webPath": "/system/hats/actions",
+      "webAction": "選択したexact HAT actionをlaneへ投入"
+    },
+    {
+      "id": "hat.invocation.status",
+      "label": "HAT actionの状態を確認する",
+      "cli": "hatter hat status --context-partition-id <ID> --repository-id <ID> --invocation-id <ID>",
+      "webPath": "/system/hats/actions",
+      "webAction": "HAT action状態"
+    },
+    {
+      "id": "hat.invocation.cancel",
+      "label": "未実行のHAT actionを取り消す",
+      "cli": "hatter hat cancel --context-partition-id <ID> --repository-id <ID> --invocation-id <ID> --expected-state-revision <REV> --request-id <ID> --idempotency-key <ID>",
+      "webPath": "/system/hats/actions",
+      "webAction": "HAT actionをCancel"
+    },
+    {
+      "id": "hat.invocation.recover",
+      "label": "停止中のHAT actionを再投入する",
+      "cli": "hatter hat recover --context-partition-id <ID> --repository-id <ID> --invocation-id <ID> --expected-state-revision <REV> --request-id <ID> --idempotency-key <ID>",
+      "webPath": "/system/hats/actions",
+      "webAction": "HAT actionをRecover"
+    },
+    {
+      "id": "profile.dictionary.read",
+      "label": "Inspect adopted language and view bindings",
+      "cli": "hatter profile dictionary",
+      "webPath": "/ontology",
+      "webAction": "Adopted language and exact view bindings"
+    },
+    {
+      "id": "profile.forms.read",
+      "label": "プロフィール入力型を確認する",
+      "cli": "hatter profile forms",
+      "webPath": "/profile/:axis",
+      "webAction": "分類に対応する入力項目を表示"
+    },
+    {
+      "id": "profile.entries.read",
+      "label": "プロフィールを確認する",
+      "cli": "hatter profile list --subject-id self",
+      "webPath": "/profile/:axis",
+      "webAction": "登録済みプロフィールを表示"
+    },
+    {
+      "id": "profile.entry.read",
+      "label": "プロフィール1件を確認する",
+      "cli": "hatter profile read --entry-id <ID>",
+      "webPath": "/profile/:axis",
+      "webAction": "登録済み項目を選択"
+    },
+    {
+      "id": "profile.entry.write",
+      "label": "プロフィールを保存する",
+      "cli": "hatter profile write --entry-id <ID> --form-id <ID> --values-json <PATH>",
+      "webPath": "/profile/:axis",
+      "webAction": "型定義に沿って保存"
+    },
+    {
+      "id": "schema.graph.read",
+      "label": "管理情報のスキーマ接続を確認する",
+      "cli": "hatter profile graph",
+      "webPath": "/system/schemas",
+      "webAction": "スキーマグラフとHAT仕様を表示"
+    },
+    {
+      "id": "diagnostics.inspect",
+      "label": "診断を確認する",
+      "cli": "hatter doctor",
+      "webPath": "/diagnostics",
+      "webAction": "理由コードとNode/Rust/ChatGPT実行境界を確認"
+    },
+    {
+      "id": "interface.inspect",
+      "label": "操作契約を確認する",
+      "cli": "hatter interface",
+      "webPath": "/interface",
+      "webAction": "CLI / Web 操作契約"
+    }
+  ]
+}

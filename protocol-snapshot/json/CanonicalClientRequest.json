@@ -1,0 +1,2934 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-hatter-contract": {
+    "representation": "jsonl-request-envelope",
+    "authority": "hatter/cli/src/management_server/wire.rs::Request+METHODS",
+    "parameter_validation": "Each Rust dispatch handler owns typed deserialization; params is serde_json::Value in Request.",
+    "source_digests": {
+      "cli/src/management_server/wire.rs": "acda6a64336142bc05339e70ec3571c99d5c5271a54b3386c625164e68cac456",
+      "cli/src/management_server/mod.rs": "0a1db36d387a64fde42a5028b670c5b3bd27b902c3759a973fc5a6e303741ffe",
+      "cli/src/management_server/hats.rs": "9ce64a4878c7bc8dce2505f2d01a0aea077bd6d76f5bd4937a8302b4ce4fccad",
+      "cli/src/management_server/account.rs": "4a0b4426eb69a1c9763da5c48aa82bbfe772264e705675466e422f24ac9b1e18",
+      "cli/src/management_server/digital_twin.rs": "6b59c13ca61c897876604bdb5e479336cc3bb8e274297bc0f89f07b58c525323",
+      "cli/src/management_server/profile.rs": "772b447ab7b08d6d7d8fdb30fad885fb38354f3f005dd76387ab8a19223b49a4",
+      "cli/src/management_server/instance.rs": "81257431359aab02e56f2b7462b09bcf5f9d0e76d5e5695cdb2dab0ea14dd1d5"
+    }
+  },
+  "definitions": {},
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/login/cancel"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/login/start"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/logout"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/rateLimits/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/remove"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/select"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "account/usage/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/contribution/apply"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/foundation/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/operational/apply"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/operational/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/projection/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/representative-archetype/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/status/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/task/runnable"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "digital-twin/task/verify"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/action-plan/approve"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/action-plan/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/action-plan/write"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/activation/projection"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/activation/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/activation/repair"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/activation/write"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/capability/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/catalog-source/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/catalog-source/select"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/catalog-source/write"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/catalog/install"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/catalog/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/catalog/package-preview"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/composition/approve"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/composition/prepare"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/composition/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/continuity/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/grant/publish"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/information-surface/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/invocation/control"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/invocation/evidence/recover"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/invocation/invoke"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/invocation/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/invocation/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/package/install-ip"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/package/install-local"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/package/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/placement/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/placement/list-all"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/placement/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/placement/select"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/projection-journal/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/service-requirement/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/setup/complete"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/setup/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/worker/claim"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/worker/complete"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/worker/inference-action/apply"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/worker/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/worker/register"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/worker/status"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hat/worker/unregister"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "hatter/status/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/causation/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/execute"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/decide"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/memory"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/observe"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/prepare"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/process"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/restore"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/role/resume"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "inference/status/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "initialize"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "instance/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "interaction/execute"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "model/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "model/provider/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "model/refresh"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "model/route/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "model/route/remove"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "model/route/write"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "model/runtime/execute"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "participant/execute"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "profile/dictionary/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "profile/entry/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "profile/entry/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "profile/entry/write"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "profile/form/list"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "profile/source/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "runtime/codex-trace/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "schema/graph/read"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "source/execute"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "storage/execute"
+          ]
+        },
+        "params": {}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method"
+      ],
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$",
+              "x-max-utf8-bytes": 128
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "world/execute"
+          ]
+        },
+        "params": {}
+      }
+    }
+  ]
+}
