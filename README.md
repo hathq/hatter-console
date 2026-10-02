@@ -1,99 +1,32 @@
-<!-- Modified by Hatter, 2026: current delivery and actual command acceptance. -->
-# Hatter Console 0.10.0
+# @hathq/hatter-console
 
-Hatter Console presents exact owner data and submits declared interactions.
-The current delivery uses `@hathq/delivery-server`, `delivery-client` and the
-bounded DOM/CSS renderer through the dependencies declared in `package.json`.
+Inspect Hatter state and submit declared interactions through a browser interface.
 
-## Actual startup boundary
+## What you can do
 
-```text
-hatter (no arguments)
-  → shared Supervisor / canonical owners
-  → verified Node delivery helper
-  → borrowed Management RPC / owner operations
-```
+- View exact owner projections and readiness.
+- Submit forms and actions tied to accepted source references.
 
-This describes current code, not the finished multiprocess design. Canonical Graph/Semantic owners are separate product children. Do not open their
-DB/Repository in an additional process.
-Product-level architecture and acceptance are maintained by the consuming Hatter project. This repository owns its declared delivery interfaces and local verification; source verification does not establish complete product acceptance.
+## Current scope
 
-The launcher validates the exact CLI digest and Node executable, binds
-`http://localhost:4213/`, and advertises that URL only after its own readiness
-probe succeeds. This proves transport readiness, not semantic data readiness.
-Delivery failure/startup diagnostics remain on stderr; owner failures are
-also available through the System projection.
+Start through the verified Hatter launcher. Transport readiness is distinct from semantic-data readiness and product acceptance.
 
-A missing configured state directory is refused before listening. Explicit
-`hatter state initialize` with the same `HATTER_HOME` prepares metadata only.
-It does not install a HAT, create semantic definitions or produce user data.
-Never use development-data replacement as a normal startup step.
+## Getting started
 
-The installed command `wonderland/bin/hatter` selects the active immutable
-generation. Building this repository does not activate that generation.
-This source continuation does not authorize release switching or user migration.
+The manifest currently requires locally supplied package archives: `@hathq/delivery-server`, `@hathq/delivery-client`, `@hathq/delivery-contracts`, `@hathq/dom-renderer`, `@hathq/projection-contracts`, `@hathq/projection-client`, `@hathq/projection-runtime`, `@crowsi/transport-foundation`, `@crowsi/browser-security`, `@zixcel/interaction`, `@hathq/ihat-store-core`, `@hathq/ihat-store-source`, `@hathq/ihat-store-scenes`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
 
-## Current routes
-
-| Route | Source and responsibility |
-| --- | --- |
-| `/` | Canonical Subject candidates and the selected projection |
-| `/scenes` | Exact published Scene; declared source edit/confirmation |
-| `/store` | External catalog observation and declared installation intent |
-| `/models` | Provider catalog state and explicit refresh |
-| `/system` | Derived publication state, diagnostics and explicit source-lease provisioning |
-
-A missing/corrupt owner is not a valid empty result. The System provision
-operation creates source-retention registries only after their canonical
-prerequisites exist. It is not a complete first-use installer.
-
-Source meaning remains in sem-lang. Hatter owns Role/Work/Grant orchestration.
-ProjectionState, client PresentationState and renderer state are separate.
-HAT input declarations never inject executable HTML, Vue or browser routes.
-Provider credentials and inference execution are not owned by the renderer.
-
-## Spatial operation and live state
-
-The root displays adopted people as selectable objects with exact representative
-labels. The initial world offers an Open people control; the in-space directory
-selects a person, and their conversation presents published questions and
-confirmations before record browsing. The source may publish no questions.
-Person-linked records remain inside that person's Information view and open
-bounded Details on demand, not as a cloud of duplicate world objects. Edge
-controls open the menu and view settings; the connection indicator opens
-notifications. System data retains exact owner diagnostics. An empty state
-shows the missing setup state without inventing roles or personal information;
-adding a HAT is not a substitute for first-use definition adoption and Role
-binding.
-
-CLI canonical source admission is reconciled by the existing bounded publisher.
-Crowsi STATE delivers changed projections and current directory/configuration
-observations. There is no browser polling loop. A configuration revision change
-invalidates stale forms; unchanged declarations preserve input. External catalog
-verification is not run on every realtime tick: it follows an explicit read or
-an observed local source-configuration revision change.
-
-`test/spatial-cli-acceptance.mjs` is an opt-in, real CLI/two-browser scenario against
-the isolated operator-created sample. It verifies exact values, replay, settings
-choices, mobile layout and no document reload. It is not a full installation,
-HAT execution or all-producer acceptance claim.
-
-## Focused validation
+Use the package manager matching the checked-in lockfile and the Node.js version declared in `engines` in `package.json`. Run from this repository:
 
 ```sh
+pnpm install --frozen-lockfile
+pnpm test
 pnpm build
-node --test test/launcher.test.mjs test/handoff.test.mjs test/delivery-owner-boundary.test.mjs
 ```
 
-The compound Rust test
-`installed_input_provider_browser_structural_apply` prepares isolated canonical
-state and a real signed external input HAT. The current native `write` browser journey starts
-the actual no-argument `hatter` command, edits a declared field, checks the exact
-canonical receipt and all rendered values, reconnects Crowsi, restarts the
-application, and checks that the same data remains without another mutation.
-It also verifies observed child disposal. Retired Vue/browser modes are removed;
-the current native fault matrix is separate. No mocked owner success establishes product acceptance.
+## Documentation and source
 
-The consuming product must supply configuration for its declared Cargo registries and retain exact command-journey acceptance evidence.
-Final published-product acceptance, first-use completeness and MP-F1/MP-F2
-closure must not be inferred from this prepared-state source scenario.
+[Interface reference](docs/interface-reference.md)
+
+[Usage guide](docs/getting-started.md)
+
+[Detailed documentation](docs) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE) · [Third-party notices](THIRD_PARTY_NOTICES.md)
