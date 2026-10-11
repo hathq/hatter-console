@@ -33,26 +33,29 @@ export function verifySnapshot(root = path.join(consoleRoot, 'protocol-snapshot'
   if (stable(JSON.parse(fs.readFileSync(graph)).management_protocol) !== stable(expected.graph)) protocolFailure('StaleSnapshot', ['graph'])
   return expected
 }
+export function generateSnapshot(root = path.join(consoleRoot, 'protocol-snapshot'), graphTarget = graphPath) {
+  const value = expectedProtocol()
+  const files = { 'json/CanonicalClientRequest.json': JSON.stringify(value.canonical, null, 2) + '\n',
+    'json/ClientRequest.json': JSON.stringify(value.projected, null, 2) + '\n', 'typescript/ClientRequest.ts': value.ts }
+  const previous = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'))), hashes = { ...previous.files }
+  for (const [p, bytes] of Object.entries(files)) hashes[p] = sha(bytes)
+  files['manifest.json'] = JSON.stringify({ schema: previous.schema, source: 'Derived from current Hatter Rust Request + METHODS; params validation belongs to runtime handlers.',
+    representation: 'jsonl-request-envelope', files: hashes }, null, 2) + '\n'
+  // A Console projection is derived from the owner contract alone.
+  // Existing workstation diagnostics are never generation input.
+  const graph = { management_protocol: value.graph }
+  // All derivation and parity validation finishes before publishing bytes.
+  for (const [p, bytes] of Object.entries(files)) {
+    const target = path.join(root, p); fs.mkdirSync(path.dirname(target), { recursive: true })
+    fs.writeFileSync(target + '.new', bytes, { flag: 'wx' }); fs.renameSync(target + '.new', target)
+  }
+  fs.writeFileSync(graphTarget + '.new', JSON.stringify(graph, null, 2) + '\n', { flag: 'wx' }); fs.renameSync(graphTarget + '.new', graphTarget)
+}
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const mode = process.argv[2]
     if (process.argv.length !== 3 || !['generate', 'verify'].includes(mode)) protocolFailure('UnsupportedRepresentation')
-    if (mode === 'generate') {
-      const value = expectedProtocol(), root = path.join(consoleRoot, 'protocol-snapshot')
-      const files = { 'json/CanonicalClientRequest.json': JSON.stringify(value.canonical, null, 2) + '\n',
-        'json/ClientRequest.json': JSON.stringify(value.projected, null, 2) + '\n', 'typescript/ClientRequest.ts': value.ts }
-      const previous = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'))), hashes = { ...previous.files }
-      for (const [p, bytes] of Object.entries(files)) hashes[p] = sha(bytes)
-      files['manifest.json'] = JSON.stringify({ schema: previous.schema, source: 'Derived from current Hatter Rust Request + METHODS; params validation belongs to runtime handlers.',
-        representation: 'jsonl-request-envelope', files: hashes }, null, 2) + '\n'
-      const graph = JSON.parse(fs.readFileSync(graphPath)); graph.management_protocol = value.graph
-      // All derivation and parity validation finishes before publishing bytes.
-      for (const [p, bytes] of Object.entries(files)) {
-        const target = path.join(root, p); fs.mkdirSync(path.dirname(target), { recursive: true })
-        fs.writeFileSync(target + '.new', bytes, { flag: 'wx' }); fs.renameSync(target + '.new', target)
-      }
-      fs.writeFileSync(graphPath + '.new', JSON.stringify(graph, null, 2) + '\n', { flag: 'wx' }); fs.renameSync(graphPath + '.new', graphPath)
-    }
+    if (mode === 'generate') generateSnapshot()
     verifySnapshot(); process.stdout.write('Hatter protocol snapshot verified.\n')
   } catch (error) { process.stderr.write(error.message + '\n'); process.exitCode = 1 }
 }
