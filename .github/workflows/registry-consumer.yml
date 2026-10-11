@@ -28,5 +28,6 @@ jobs:
           echo "NPM_CONFIG_GLOBALCONFIG=$RUNNER_TEMP/global.npmrc" >> "$GITHUB_ENV"
           echo "NPM_CONFIG_REGISTRY=https://registry.npmjs.org/" >> "$GITHUB_ENV"
       - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm run test:public
       - run: pnpm build
