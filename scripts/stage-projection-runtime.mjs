@@ -1,17 +1,20 @@
 // Hatter downstream 2026: preserve only the two installed immutable Projection
 // packages, whose workers and implementation digests require original files.
+// Stage runtime code, package metadata and legal notices with original bytes;
+// development declarations and README files stay in the registry distribution.
 // No package installation, dependency resolution or owner source checkout copy.
 import fs from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import assert from 'node:assert/strict'
 const root=path.resolve(import.meta.dirname,'..')
+const dependencies=JSON.parse(fs.readFileSync(root+'/package.json')).dependencies
 const names=['@zixcel/projection-contracts','@zixcel/projection-runtime','@zixcel/interaction']
 let count=0,bytes=0
 for(const name of names){
   const source=path.resolve(path.dirname(fileURLToPath(import.meta.resolve(name))),'..')
   const manifest=JSON.parse(fs.readFileSync(source+'/package.json'))
-  assert.equal(manifest.name,name);assert.equal(manifest.version,JSON.parse(fs.readFileSync(root+'/package.json')).dependencies[name])
+  assert.equal(manifest.name,name);assert.equal(manifest.version,dependencies[name])
   // ohash is used only by the browser condition and is bundled by Vite. Node
   // resolves the native hash module; it does not need a duplicate ohash tree.
   assert.ok(Object.keys(manifest.dependencies??{}).every(n=>names.includes(n)
@@ -19,6 +22,7 @@ for(const name of names){
   const target=root+'/.output/server/node_modules/'+name
   function copy(directory,relative=''){
     for(const entry of fs.readdirSync(directory,{withFileTypes:true})){
+      if(entry.name==='README.md'||/\.d\.(?:ts|mts|cts)$/.test(entry.name))continue
       const from=directory+'/'+entry.name,to=target+'/'+relative+entry.name
       if(entry.isDirectory())copy(from,relative+entry.name+'/')
       else {
