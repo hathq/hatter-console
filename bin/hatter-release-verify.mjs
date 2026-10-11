@@ -83,6 +83,10 @@ async function verifyWireContract(root) {
   if (!Array.isArray(allowed)) fail('protocol-projection-required')
   verifyProjection(canonical, client, ts, allowed)
   const graph = JSON.parse(await readFile(join(root, 'protocol/schema/debug/protocol-schema-graph.json'), 'utf8'))
+  if (!graph || Array.isArray(graph) || typeof graph !== 'object'
+    || Object.keys(graph).length !== 1 || !Object.hasOwn(graph, 'management_protocol')) {
+    fail('protocol-graph-scope-invalid')
+  }
   if (stable(graph.management_protocol) !== stable(graphProjection(canonical, client))) fail('protocol-graph-mismatch')
 }
 async function verifyHatDiscoveryContract(schemaPath) {

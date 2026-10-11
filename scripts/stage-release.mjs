@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 import { releaseDigest, treeDigest } from './lib/release-digest.mjs'
 import { verifyBuildBudget } from './verify-build-budget.mjs'
 import { verifyRelease, PRODUCT_EXECUTABLES } from '../bin/hatter-release-verify.mjs'
-import { verifySnapshot, graphPath } from './sync-management-protocol.mjs'
+import { verifySnapshot } from './sync-management-protocol.mjs'
 import { stageDeliveryLicenses } from './stage-delivery-licenses.mjs'
 
 const repository = dirname(dirname(fileURLToPath(import.meta.url)))
@@ -31,7 +31,7 @@ await trustedDirectory(protocolSource)
 await trustedTree(protocolSource)
 // Protocol preflight is read-only and uses the same canonical/subset/parity gate
 // as development verification. No compatibility snapshot path is selected.
-verifySnapshot(protocolSource)
+const protocol = verifySnapshot(protocolSource)
 await mkdir(destination, { recursive: true, mode: 0o700 })
 const temporary = await mkdtemp(join(destination, '.stage-'))
 try {
@@ -47,7 +47,8 @@ try {
   await cp(join(repository, 'protocol-snapshot/hat-discovery-contract.schema.json'),
     join(temporary, 'protocol/schema/json/HatDiscoveryProjection.json'))
   await mkdir(join(temporary, 'protocol/schema/debug'), { recursive: true })
-  await cp(graphPath, join(temporary, 'protocol/schema/debug/protocol-schema-graph.json'))
+  await writeFile(join(temporary, 'protocol/schema/debug/protocol-schema-graph.json'),
+    `${JSON.stringify({ management_protocol: protocol.graph }, null, 2)}\n`, { mode: 0o600 })
   await mkdir(join(temporary, 'licenses'), { recursive: true })
   await cp(join(repository, 'licenses/hatter'), join(temporary, 'licenses/hatter'), { recursive: true })
   await stageDeliveryLicenses(repository, join(temporary, 'licenses'))
@@ -88,6 +89,7 @@ try {
     licenses: { path: 'licenses', digest: licensesDigest } }
   await writeFile(join(temporary, 'release-manifest.json'),
     `${JSON.stringify(manifest, null, 2)}\n`, { mode: 0o600 })
+  await verifyRelease(temporary)
   const target = join(destination, payloadDigest.slice('sha256:'.length))
   try { await rename(temporary, target) } catch (error) {
     // Linux reports ENOTEMPTY when a non-empty generation already exists;

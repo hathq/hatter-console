@@ -6,12 +6,29 @@ import os from 'node:os'
 import { spawnSync } from 'node:child_process'
 import test from 'node:test'
 import { createHash } from 'node:crypto'
-import { verifySnapshot, graphPath } from '../scripts/sync-management-protocol.mjs'
+import { verifySnapshot, generateSnapshot, graphPath } from '../scripts/sync-management-protocol.mjs'
 import { methodSet, typeScript, stable } from '../bin/hatter-protocol-verify.mjs'
 import { CLIENT_RPC_METHODS } from '../server/lib/rpc-policy.mjs'
 const root = path.resolve(import.meta.dirname, '..')
 const owner = path.resolve(root, '../hatter/cli')
 const sha = b => createHash('sha256').update(b).digest('hex')
+
+test('regeneration does not inherit retired references from an existing diagnostic graph', t => {
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'console-protocol-generation-'))
+  t.after(() => fs.rmSync(temporary, { recursive: true, force: true }))
+  const snapshot = path.join(temporary, 'snapshot'), graph = path.join(temporary, 'graph.json')
+  fs.cpSync(path.join(root, 'protocol-snapshot'), snapshot, { recursive: true })
+  fs.writeFileSync(graph, JSON.stringify({ nodes: [{ uri: 'private://retired-project/v1' }],
+    warnings: [{ source_path: 'migration-input/private.toml' }], management_protocol: {} }))
+  generateSnapshot(snapshot, graph)
+  const value = JSON.parse(fs.readFileSync(graph))
+  assert.deepEqual(Object.keys(value), ['management_protocol'])
+  assert.ok(!fs.readFileSync(graph, 'utf8').includes('retired-project'))
+  verifySnapshot(snapshot, graph)
+  const before = sha(fs.readFileSync(graph))
+  generateSnapshot(snapshot, graph)
+  assert.equal(sha(fs.readFileSync(graph)), before)
+})
 
 test('owner artifact, frozen Console projection, TS and graph agree; repeated verification is read-only', () => {
   const inputs = ['protocol-snapshot/manifest.json', 'protocol-snapshot/json/ClientRequest.json',

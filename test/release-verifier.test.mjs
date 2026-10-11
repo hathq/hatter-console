@@ -54,6 +54,20 @@ test('bundled verifier accepts one complete generation and detects mutation', as
     licenses: { path: 'licenses', digest: await treeDigest(root, ['licenses']) } }
   await writeFile(join(root, 'release-manifest.json'), JSON.stringify(manifest))
   assert.equal((await verifyRelease(root)).payloadDigest, manifest.payloadDigest)
+  // Valid hashes cannot authorize diagnostic workspace data in a delivery.
+  const graphPath = join(root, 'protocol/schema/debug/protocol-schema-graph.json')
+  const deliveryGraph = await readFile(graphPath)
+  await writeFile(graphPath, JSON.stringify({ management_protocol: graphProjection(canonical, client),
+    nodes: [{ uri: 'private://retired-project/v1' }], source_root: '/private/workspace' }))
+  manifest.protocol.digest = await treeDigest(root, ['protocol'])
+  manifest.payloadDigest = await releaseDigest(root)
+  await writeFile(join(root, 'release-manifest.json'), JSON.stringify(manifest))
+  await assert.rejects(verifyRelease(root), /protocol-graph-scope-invalid/)
+  await writeFile(graphPath, deliveryGraph)
+  manifest.protocol.digest = await treeDigest(root, ['protocol'])
+  manifest.payloadDigest = await releaseDigest(root)
+  await writeFile(join(root, 'release-manifest.json'), JSON.stringify(manifest))
+  assert.equal((await verifyRelease(root)).payloadDigest, manifest.payloadDigest)
   const owner = join(root, PRODUCT_EXECUTABLES.graph), image = await readFile(owner)
   await writeFile(owner, 'wrong owner generation')
   await assert.rejects(verifyRelease(root), /binary-digest-mismatch/)
