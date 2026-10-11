@@ -13,8 +13,8 @@ test('keeps runtime dependencies on the reviewed lightweight boundary', async ()
   const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
   const policy = JSON.parse(await readFile(new URL('../build-policy.json', import.meta.url), 'utf8'))
   assert.doesNotThrow(() => validateDependencyBoundary(manifest, policy))
-  for (const name of ['@hathq/delivery-server', '@hathq/delivery-client', '@hathq/dom-renderer']) {
-    assert.match(manifest.dependencies[name], /^file:.*\/\.artifacts\/npm\/[a-f0-9]{64}\//u)
+  for (const name of ['@hathq/delivery-server', '@hathq/delivery-client', '@zixcel/dom-renderer']) {
+    assert.match(manifest.dependencies[name], /^0\.10\.0$/u)
   }
   for (const name of ['nuxt', 'vue', 'nitropack', 'sigma', 'graphology', 'd3', 'd3-force', 'd3-hierarchy', 'd3-selection']) {
     assert.equal(name in manifest.dependencies, false)

@@ -1,7 +1,7 @@
 // Test-owned process exercising the installed PP kernel exclusion, not an
 // in-memory substitute for cross-process metadata CAS.
 import path from 'node:path'
-import {FileProjectionStore} from '@hathq/projection-runtime/store'
+import {FileProjectionStore} from '@zixcel/projection-runtime/store'
 import {ProductPublication} from '../server/runtime/product-publication.mjs'
 const home=process.argv[2],store=new FileProjectionStore(path.join(home,'derived','projections'))
 const roleRef={id:'role',revision:1,digest_sha256:'a'.repeat(64)}

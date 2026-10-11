@@ -2,7 +2,7 @@
 // This is a projection boundary test, not evidence of an executed HAT effect.
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {produce} from '@hathq/projection-contracts'
+import {produce} from '@zixcel/projection-contracts'
 import {sourceProjection} from '../server/runtime/product-projections.mjs'
 import {sceneInput} from '../server/runtime/scene-input.mjs'
 

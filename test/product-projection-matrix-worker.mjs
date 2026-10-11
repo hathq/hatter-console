@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import {once} from 'node:events'
 import {ProductProjections} from '../server/runtime/product-projections.mjs'
 import {SourceOwnerClient} from '../server/runtime/source-owner-client.mjs'
-import {FileProjectionStore} from '@hathq/projection-runtime/store'
+import {FileProjectionStore} from '@zixcel/projection-runtime/store'
 const input=JSON.parse(fs.readFileSync(0,'utf8')),leases=[],events=[],start=Date.now()
 const call=SourceOwnerClient.prototype.call
 let reads=0

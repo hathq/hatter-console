@@ -3,9 +3,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
-import {ProjectionRuntime,ProducerRegistry,ExactSourceReader} from '@hathq/projection-runtime'
-import {FileProjectionStore} from '@hathq/projection-runtime/store'
-import {canonical} from '@hathq/projection-contracts'
+import {ProjectionRuntime,ProducerRegistry,ExactSourceReader} from '@zixcel/projection-runtime'
+import {FileProjectionStore} from '@zixcel/projection-runtime/store'
+import {canonical} from '@zixcel/projection-contracts'
 import {SourceOwnerClient} from './source-owner-client.mjs'
 
 const owners=['sem-lang','hatter/control','hatter/admission','hatter/execution']

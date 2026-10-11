@@ -10,7 +10,7 @@ import { typeScript, verifyProjection, graphProjection, stable, protocolFailure 
 const consoleRoot = path.resolve(import.meta.dirname, '..')
 const producer = path.resolve(consoleRoot, '../hatter/cli/scripts/generate-management-protocol.mjs')
 const generated = path.resolve(consoleRoot, '../hatter/cli/schema/generated')
-export const graphPath = path.resolve(consoleRoot, '../../../hat-spec/repositories/hat-protocol-schema-debugger/generated/protocol-schema-graph.json')
+export const graphPath = path.resolve(consoleRoot, '../hat-protocol-schema-debugger/generated/protocol-schema-graph.json')
 const sha = bytes => 'sha256:' + createHash('sha256').update(bytes).digest('hex')
 export function expectedProtocol() {
   // Explicit owner process boundary, no cross-repository runtime/source import.

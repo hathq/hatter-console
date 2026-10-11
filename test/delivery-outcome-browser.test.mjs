@@ -18,8 +18,9 @@ test('Chromium receives uncertain timeout, never retransmits POST, and late owne
    async command(){calls++;await delay(5200);effects++;return {canonical:{state:'Accepted',receiptRef}}}
   }})
  server.server.on('request',request=>{if(request.url==='/api/action')received.push(request.headers['x-hatter-request-nonce'])})
- await server.listen();const browser=await chromium.launch({headless:true})
+ await server.listen();let browser
  try{
+  browser=await chromium.launch({headless:true})
   const page=await browser.newPage();await page.goto(origin)
   const result=await page.evaluate(async()=>{
    const {csrf}=await fetch('/api/connection',{method:'POST',headers:{'content-type':'application/json'},body:'{}'}).then(r=>r.json())
@@ -35,5 +36,5 @@ test('Chromium receives uncertain timeout, never retransmits POST, and late owne
   assert.equal(original.stage,'OWNER_COMMITTED');assert.equal(original.receiptRef,receiptRef);assert.equal(original.httpStatus,504)
   assert.deepEqual(failures,[result.value.error])
   console.log(JSON.stringify({status:result.status,received:received.length,calls,effects,original}))
- }finally{await browser.close();await server.close()}
+ }finally{await browser?.close();await server.close()}
 })

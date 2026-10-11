@@ -1,5 +1,5 @@
 // Hatter presentation policy over PP1 snapshots only. No source/owner reads.
-import {scene,validateSnapshot,canonical} from '@hathq/projection-contracts'
+import {scene,validateSnapshot,canonical} from '@zixcel/projection-contracts'
 
 // A bounded display preview, never a rewrite of the original typed field.
 function bubbleValue(value){
