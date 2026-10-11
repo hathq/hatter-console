@@ -13,7 +13,7 @@ test('bundled verifier accepts one complete generation and detects mutation', as
   t.after(() => rm(root, { recursive: true, force: true }))
   for (const path of ['bin', '.output/server', 'protocol/schema/json',
     'protocol/schema/typescript', 'protocol/schema/debug', 'licenses/hatter', 'licenses/hatter-console',
-    'licenses/hathq/dom-renderer']) {
+    'licenses/zixcel/dom-renderer']) {
     await mkdir(join(root, path), { recursive: true })
   }
   const binaries = Object.values(PRODUCT_EXECUTABLES).map(path => path.slice(4))
@@ -33,12 +33,12 @@ test('bundled verifier accepts one complete generation and detects mutation', as
   await writeFile(join(root, 'protocol/schema/typescript/ClientRequest.ts'), typeScript(client))
   for (const file of ['hatter/LICENSE', 'hatter/NOTICE', 'hatter-console/LICENSE',
     'hatter-console/NOTICE', 'hatter-console/THIRD_PARTY_NOTICES.md',
-    'hathq/dom-renderer/LICENSE']) {
+    'zixcel/dom-renderer/LICENSE']) {
     await writeFile(join(root, 'licenses', file), `fixture ${file}`)
   }
   await writeFile(join(root, 'licenses/inventory.json'), JSON.stringify({
-    schema: 'hatter/delivery/licenses/1', packages: [{ name: '@hathq/dom-renderer',
-      files: [{ path: 'hathq/dom-renderer/LICENSE', digest: await fileDigest(join(root, 'licenses/hathq/dom-renderer/LICENSE')) }] }]
+    schema: 'hatter/delivery/licenses/1', packages: [{ name: '@zixcel/dom-renderer',
+      files: [{ path: 'zixcel/dom-renderer/LICENSE', digest: await fileDigest(join(root, 'licenses/zixcel/dom-renderer/LICENSE')) }] }]
   }))
   const executables = {}
   for (const [key, path] of Object.entries(PRODUCT_EXECUTABLES)) {

@@ -16,7 +16,7 @@ test('R1 actual wrapper applies only a process-local descriptor ceiling',async t
  const wrapper=join(root,'hatter-console')
  await copyFile(new URL('../bin/hatter-console',import.meta.url),wrapper);await chmod(wrapper,0o700)
  await writeFile(join(root,'hatter-console.mjs'),`import fs from 'node:fs';process.stdout.write(fs.readFileSync('/proc/self/limits','utf8').split('\\n').find(l=>l.startsWith('Max open files')))`)
- const result=spawnSync(wrapper,[],{env:{...process.env,HATTER_CONSOLE_NODE_EXECUTABLE:process.execPath},encoding:'utf8',timeout:5000})
+ const result=spawnSync(wrapper,[],{env:{...process.env,HOME:root,HATTER_HOME:root,HATTER_CONSOLE_NODE_EXECUTABLE:process.execPath},encoding:'utf8',timeout:5000})
  assert.equal(result.status,0,result.stderr)
  assert(Number(result.stdout.trim().split(/\s+/u)[3])<=1024)
 })

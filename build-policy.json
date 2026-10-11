@@ -4,10 +4,10 @@
     "@hathq/delivery-server",
     "@hathq/delivery-client",
     "@hathq/delivery-contracts",
-    "@hathq/dom-renderer",
-    "@hathq/projection-contracts",
-    "@hathq/projection-client",
-    "@hathq/projection-runtime",
+    "@zixcel/dom-renderer",
+    "@zixcel/projection-contracts",
+    "@zixcel/projection-client",
+    "@zixcel/projection-runtime",
     "@crowsi/transport-foundation",
     "@crowsi/browser-security",
     "@zixcel/interaction",
@@ -15,14 +15,7 @@
     "@hathq/ihat-store-source",
     "@hathq/ihat-store-scenes"
   ],
-  "localRuntimeDependencies": [
-    "@hathq/delivery-server",
-    "@hathq/delivery-client",
-    "@hathq/delivery-contracts",
-    "@hathq/dom-renderer",
-    "@hathq/projection-client",
-    "@hathq/ihat-store-scenes"
-  ],
+  "localRuntimeDependencies": [],
   "forbiddenRuntimeDependencies": [
     "@opentelemetry/api",
     "@sentry/nuxt",

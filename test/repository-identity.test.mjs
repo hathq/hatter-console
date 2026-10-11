@@ -15,7 +15,9 @@ test('resolves the exact Console identity through the frozen product scope and r
   const options = { cwd: wonderland, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
   const output = execFileSync(process.execPath,
     [resolver, 'value', 'repository', 'hatter-console'], options).trim()
-  assert.equal(output, repository)
+  const common = execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
+    { cwd: repository, encoding: 'utf8' }).trim()
+  assert.equal(output, dirname(common))
   assert.throws(() => execFileSync(process.execPath,
     [resolver, 'value', 'repository', 'zixcel-source-evidence'], options),
   error => error.status === 1 && error.stderr.includes('hatter-input-unexpected-repository'))

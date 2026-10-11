@@ -1,7 +1,7 @@
 // Hatter 2026: public presentation is declared; raw canonical records remain inspectable.
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {produce} from '@hathq/projection-contracts'
+import {produce} from '@zixcel/projection-contracts'
 import {sceneInput} from '../server/runtime/scene-input.mjs'
 import {sourceProjection} from '../server/runtime/product-projections.mjs'
 

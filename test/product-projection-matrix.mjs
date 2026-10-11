@@ -63,7 +63,7 @@ try{
     const timed=start({sources,id:'timeout-owner',mode:'timeout'});await timed.ready
     // The concurrent workload validates the installed artifact and runs a real
     // second publication; deadline remains 5 s, including the actual source IO.
-    const archive=spawn(process.execPath,['--input-type=module','-e',"import {ProducerRegistry} from '@hathq/projection-runtime';for(let n=0;n<64;n++){new ProducerRegistry().register({id:'check',kind:'data'})}"],{cwd:new URL('..',import.meta.url),stdio:['ignore','pipe','pipe']})
+    const archive=spawn(process.execPath,['--input-type=module','-e',"import {ProducerRegistry} from '@zixcel/projection-runtime';for(let n=0;n<64;n++){new ProducerRegistry().register({id:'check',kind:'data'})}"],{cwd:new URL('..',import.meta.url),stdio:['ignore','pipe','pipe']})
     children.push(archive);let diagnostics='';archive.stderr.on('data',b=>diagnostics+=b)
     const archiveDone=new Promise(resolve=>archive.once('close',resolve))
     const normal=await start({sources,id:'concurrent-normal',focus:'concurrent'}).finished

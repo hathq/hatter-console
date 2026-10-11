@@ -3,7 +3,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {createHash,randomUUID} from 'node:crypto'
-import {canonical} from '@hathq/projection-contracts'
+import {canonical} from '@zixcel/projection-contracts'
 import {validateInputDeclaration} from '@zixcel/interaction/input'
 const hash=value=>createHash('sha256').update(canonical(value)).digest('hex')
 const fail=code=>{throw Object.assign(Error(code),{code})}

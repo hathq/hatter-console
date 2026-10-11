@@ -1,7 +1,7 @@
 // Hatter 0.10.0: exact owner input and detached Work response projection.
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {produce,scene,canonical} from '@hathq/projection-contracts'
+import {produce,scene,canonical} from '@zixcel/projection-contracts'
 import {exactInteraction,submitInteraction,ownerCommandFailure} from '../server/runtime/product-interactions.mjs'
 import {DiagnosticStore} from '../server/lib/diagnostic-store.mjs'
 const source={owner:'hatter/control',ref:'receipt:1',revision:'revision:1',kind:'control'}

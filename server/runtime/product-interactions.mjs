@@ -1,6 +1,6 @@
 // Hatter product command orchestration. Inputs/meaning/decisions remain owned
 // by their existing providers; a Scene action is never an execution grant.
-import {canonical} from '@hathq/projection-contracts'
+import {canonical} from '@zixcel/projection-contracts'
 import {validateSubmission,inputAction} from '@hathq/delivery-contracts'
 import {sceneInput} from './scene-input.mjs'
 import {projectManagementFailure,committedOwnerReceipt} from '../lib/management-failure.mjs'

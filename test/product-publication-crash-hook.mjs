@@ -2,8 +2,8 @@
 // return values or source readers. Parent kills this exact process and restarts.
 import fs from 'node:fs'
 import path from 'node:path'
-const {ProjectionRuntime}=await import(new URL('../.output/server/node_modules/@hathq/projection-runtime/src/runtime.mjs',import.meta.url))
-const {FileProjectionStore}=await import(new URL('../.output/server/node_modules/@hathq/projection-runtime/src/store.mjs',import.meta.url))
+const {ProjectionRuntime}=await import(new URL('../.output/server/node_modules/@zixcel/projection-runtime/src/runtime.mjs',import.meta.url))
+const {FileProjectionStore}=await import(new URL('../.output/server/node_modules/@zixcel/projection-runtime/src/store.mjs',import.meta.url))
 const mode=process.env.HATTER_PP_CRASH_MODE,home=process.env.HATTER_HOME
 function pause(phase){
   const arm=path.join(home,'publication-crash-arm')
