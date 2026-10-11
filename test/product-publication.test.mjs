@@ -4,9 +4,9 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
-import {canonical} from '@hathq/projection-contracts'
+import {canonical} from '@zixcel/projection-contracts'
 import {fork} from 'node:child_process'
-import {FileProjectionStore} from '@hathq/projection-runtime/store'
+import {FileProjectionStore} from '@zixcel/projection-runtime/store'
 import {ProductPublication} from '../server/runtime/product-publication.mjs'
 function fixture(){
   const home=fs.mkdtempSync(path.join(os.tmpdir(),'hatter-product-publication-'));fs.mkdirSync(path.join(home,'derived'))

@@ -14,5 +14,5 @@ test('only current native product sources remain; every local module has a produ
  for(const path of [...files('server'),...files('shared')])assert(inputs.has(path),'unowned local module: '+path)
  for(const path of inputs)assert.doesNotMatch(path,/(?:^|\/)(?:nuxt|vue|nitropack|h3)(?:\/|$)/)
  const manifest=JSON.parse(fs.readFileSync('package.json'));assert.equal(manifest.version,'0.10.0')
- for(const [name,ref] of Object.entries(manifest.dependencies))assert.match(ref,/^file:.*\/npm\/[a-f0-9]{64}\/[^/]+-0\.10\.0\.tgz$/,name)
+ for(const [name,ref] of Object.entries(manifest.dependencies))assert.match(ref,/^0\.10\.[01]$/,name)
 })

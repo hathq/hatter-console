@@ -4,7 +4,7 @@ import {createRequire,syncBuiltinESMExports} from 'node:module'
 import {fileURLToPath} from 'node:url'
 import {ProductProjections} from '../server/runtime/product-projections.mjs'
 import {SourceOwnerClient} from '../server/runtime/source-owner-client.mjs'
-import {FileProjectionStore} from '@hathq/projection-runtime/store'
+import {FileProjectionStore} from '@zixcel/projection-runtime/store'
 const input=JSON.parse(fs.readFileSync(0,'utf8')),acquired=[]
 const crash=()=>{fs.writeSync(1,JSON.stringify({phase:input.phase,acquired})+'\n');process.exit(77)}
 const original=SourceOwnerClient.prototype.call
