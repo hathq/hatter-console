@@ -4,7 +4,16 @@ import assert from 'node:assert/strict'
 import {mkdtemp, readFile, lstat, rm, mkdir, writeFile} from 'node:fs/promises'
 import {generateKeyPairSync,sign,createHash} from 'node:crypto'
 import {tmpdir} from 'node:os'
-import {join, isAbsolute, resolve} from 'node:path'
+import {join, isAbsolute, resolve, dirname} from 'node:path'
+import {existsSync} from 'node:fs'
+import {publicCatalogFixture} from './helpers/public-catalog-fixture.mjs'
+
+let workspaceRoot=import.meta.dirname
+while(!existsSync(join(workspaceRoot,'source-foundation.toml'))){
+ const parent=dirname(workspaceRoot)
+ assert.notEqual(parent,workspaceRoot,'Wonderland workspace marker required')
+ workspaceRoot=parent
+}
 import {once} from 'node:events'
 import {setTimeout as delay} from 'node:timers/promises'
 import {spawnParentBound} from '@crowsi/transport-foundation/process'
@@ -180,7 +189,9 @@ const panel=async name=>{if(['System data','View and time'].includes(name)){awai
   await mkdir(catalogDirectory,{recursive:true})
   const {publicKey,privateKey}=generateKeyPairSync('ed25519')
   const publicKeyHex=publicKey.export({type:'spki',format:'der'}).subarray(-32).toString('hex')
-  const catalog=JSON.parse(await readFile(resolve('../../../../../../../ecosystem/providers/hathq/services/hat-registry/repositories/ihat-registry-site/public/catalog/v2/index.json'),'utf8'))
+  const catalogRoot=join(workspaceRoot,'organizations/hathq/official-hats')
+  const policy=JSON.parse(await readFile(join(catalogRoot,'public-package-policy.json'),'utf8'))
+  const catalog=publicCatalogFixture(JSON.parse(await readFile(join(catalogRoot,'catalog-v2.json'),'utf8')),policy.repository_ids)
   catalog.origin='https://browser-test.invalid';catalog.signing_key_id='browser-test'
   const catalogBytes=Buffer.from(JSON.stringify(catalog)),signature=sign(null,catalogBytes,privateKey).toString('hex')
   const configured=await command(['hat','catalog-source-set','--source-id','browser-test','--label','Browser test source','--kind','local-directory',

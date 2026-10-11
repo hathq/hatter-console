@@ -8,6 +8,7 @@ const root=path.resolve(import.meta.dirname,'..'),output=root+'/.output'
 const budgets=JSON.parse(fs.readFileSync(root+'/build-policy.json','utf8')).budgets
 const stage=fs.mkdtempSync(root+'/.delivery-build-')
 const hash=value=>createHash('sha256').update(value).digest('hex')
+try {
 const browser=await build({entryPoints:[root+'/delivery/client.mjs'],bundle:true,platform:'browser',target:['es2022'],format:'esm',minify:true,write:false,metafile:true,legalComments:'inline',logLevel:'silent'})
 if(browser.warnings.length)throw Error('DeliveryBuildWarnings')
 const server=await build({entryPoints:[root+'/delivery/server.mjs'],bundle:true,platform:'node',target:'node22',format:'esm',write:false,metafile:true,
@@ -30,8 +31,13 @@ const site={id:'hatter:console',revision:hash(JSON.stringify({assets,server:hash
 fs.writeFileSync(stage+'/server/delivery.json',JSON.stringify({site,assets})+'\n',{flag:'wx'})
 // Preserve the superseded output as audit evidence, never a runtime fallback.
 if(fs.existsSync(output)){
- const evidence=path.resolve(root,'../../../../../../../.artifacts/verification'),prior=fs.mkdtempSync(evidence+'/delivery-prior-')
+ const evidence=path.resolve(root,'../../../.artifacts/verification')
+ fs.mkdirSync(evidence,{recursive:true,mode:0o700})
+ const prior=fs.mkdtempSync(evidence+'/delivery-prior-')
  fs.renameSync(output,prior+'/output')
 }
 fs.renameSync(stage,output)
 process.stdout.write(JSON.stringify({site,assets,serverBytes:server.outputFiles[0].contents.length,inputs:inputs.length,frameworkRuntimeInputs:0})+'\n')
+} finally {
+ fs.rmSync(stage,{recursive:true,force:true})
+}

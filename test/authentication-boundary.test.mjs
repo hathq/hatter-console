@@ -11,7 +11,7 @@ test('Hatter consumes packed browser protection but owns no Passkey or recovery 
     await assert.rejects(access(new URL(path, root)), { code: 'ENOENT' })
   }
   const manifest = JSON.parse(await readFile(new URL('package.json', root)))
-  assert.match(manifest.dependencies['@crowsi/browser-security'], /file:.*\/npm\/[a-f0-9]{64}\/crowsi-browser-security-0\.10\.0\.tgz$/u)
+  assert.equal(manifest.dependencies['@crowsi/browser-security'], '0.10.0')
   for (const directory of ['delivery', 'server', 'shared']) {
     for (const path of await readdir(new URL(directory + '/', root), { recursive: true })) {
       if (!/\.(?:ts|mjs|vue)$/u.test(path)) continue

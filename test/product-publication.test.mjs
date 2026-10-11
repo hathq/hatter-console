@@ -9,7 +9,7 @@ import {fork} from 'node:child_process'
 import {FileProjectionStore} from '@hathq/projection-runtime/store'
 import {ProductPublication} from '../server/runtime/product-publication.mjs'
 function fixture(){
-  const home=fs.mkdtempSync(path.join(os.tmpdir(),'hatter-product-publication-'));fs.mkdirSync(path.join(home,'derived'))
+  const home=fs.mkdtempSync(path.join(os.tmpdir(),'hatter-product-publication-'));fs.mkdirSync(path.join(home,'derived'),{mode:0o700})
   let receipt='r:1';const snapshots=new Map(),submissions=[]
   const roleRef={id:'role',revision:1,digest_sha256:'a'.repeat(64)},subjectRef={id:'person',class:'person'}
   const product={
