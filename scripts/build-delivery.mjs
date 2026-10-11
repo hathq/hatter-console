@@ -30,7 +30,9 @@ const site={id:'hatter:console',revision:hash(JSON.stringify({assets,server:hash
 fs.writeFileSync(stage+'/server/delivery.json',JSON.stringify({site,assets})+'\n',{flag:'wx'})
 // Preserve the superseded output as audit evidence, never a runtime fallback.
 if(fs.existsSync(output)){
- const evidence=path.resolve(root,'../../../../../../../.artifacts/verification'),prior=fs.mkdtempSync(evidence+'/delivery-prior-')
+ const evidence=path.resolve(root,'.artifacts/verification')
+ fs.mkdirSync(evidence,{recursive:true})
+ const prior=fs.mkdtempSync(evidence+'/delivery-prior-')
  fs.renameSync(output,prior+'/output')
 }
 fs.renameSync(stage,output)

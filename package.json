@@ -15,7 +15,9 @@
     "size:verify": "node scripts/verify-build-budget.mjs",
     "start": "./bin/hatter-console",
     "test": "node --test test/*.test.mjs",
-    "test:e2e": "node test/product-root-browser.mjs"
+    "test:e2e": "node test/product-root-browser.mjs",
+    "test:public": "node scripts/test-public.mjs",
+    "test:owner-source": "node --test test/management-protocol-projection.test.mjs test/protocol-contract.test.mjs test/repository-identity.test.mjs test/rpc-policy.test.mjs"
   },
   "dependencies": {
     "@hathq/delivery-server": "0.10.0",
@@ -25,8 +27,8 @@
     "@zixcel/projection-contracts": "0.10.0",
     "@zixcel/projection-client": "0.10.0",
     "@zixcel/projection-runtime": "0.10.0",
-    "@crowsi/transport-foundation": "0.10.1",
-    "@crowsi/browser-security": "0.10.1",
+    "@crowsi/transport-foundation": "0.10.0",
+    "@crowsi/browser-security": "0.10.0",
     "@zixcel/interaction": "0.10.1",
     "@hathq/ihat-store-core": "0.10.0",
     "@hathq/ihat-store-source": "0.10.0",
