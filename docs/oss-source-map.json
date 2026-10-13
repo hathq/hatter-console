@@ -1,0 +1,268 @@
+{
+  "repository": "hathq/hatter-console",
+  "purpose": "Inspect Hatter state and submit declared interactions through a browser interface.",
+  "responsibility_boundary": "Own only the documented product/interface scope. Reuse applicable managed common components without forcing unrelated dependencies. Separate synthetic source acceptance from actual account, data and deployment acceptance.",
+  "packages": [
+    {
+      "manifest": "package.json",
+      "package": "@hathq/hatter-console",
+      "ecosystem": "npm",
+      "description": "Hatter-owned framework-neutral Scene delivery site",
+      "interfaces": {
+        "exports": {},
+        "bin": {},
+        "main": null,
+        "types": null
+      },
+      "declared_commands": {
+        "build": "node scripts/build-delivery.mjs && node scripts/stage-projection-runtime.mjs && node scripts/build-launcher.mjs && node scripts/verify-build-budget.mjs",
+        "release:stage": "node scripts/stage-release.mjs",
+        "release:verify": "node scripts/verify-release.mjs",
+        "size:verify": "node scripts/verify-build-budget.mjs",
+        "start": "./bin/hatter-console",
+        "test": "node --test test/*.test.mjs",
+        "test:e2e": "node test/product-root-browser.mjs",
+        "test:public": "node scripts/test-public.mjs",
+        "test:owner-source": "node --test test/management-protocol-projection.test.mjs test/protocol-contract.test.mjs test/repository-identity.test.mjs test/rpc-policy.test.mjs"
+      }
+    }
+  ],
+  "schema_definitions": [
+    "protocol-snapshot/catalog-sources-contract.schema.json",
+    "protocol-snapshot/hat-discovery-contract.schema.json"
+  ],
+  "test_sources": [
+    "bin/hatter-release-verify.mjs",
+    "delivery/semantic-overview.mjs",
+    "scripts/verify-build-budget.mjs",
+    "server/lib/management-connection.mjs",
+    "server/lib/management-failure.mjs",
+    "server/lib/projection.mjs",
+    "server/runtime/product-projections.mjs",
+    "server/runtime/product-publication.mjs",
+    "shared/declaration-label.mjs",
+    "shared/role-memory.mjs",
+    "test/action-plan-projection.test.mjs",
+    "test/auth-resolution-fixture.mjs",
+    "test/auth-resolution.test.mjs",
+    "test/authentication-boundary.test.mjs",
+    "test/automatic-feedback-browser.mjs",
+    "test/boundary.test.mjs",
+    "test/build-budget.test.mjs",
+    "test/catalog-state.test.mjs",
+    "test/codex-trace-projection.test.mjs",
+    "test/declaration-label.test.mjs",
+    "test/delivery-catalog-settings.test.mjs",
+    "test/delivery-outcome-browser.test.mjs",
+    "test/delivery-owner-boundary.test.mjs",
+    "test/digital-twin-projection.test.mjs",
+    "test/document-observation.test.mjs",
+    "test/exact-runtime-registry.test.mjs",
+    "test/feedback-input-browser.mjs",
+    "test/garden-roster.test.mjs",
+    "test/graph-prepare-barrier.c",
+    "test/graph-prepared-journey.mjs",
+    "test/graph-rpc-journey.mjs",
+    "test/graph-slow-owner.mjs",
+    "test/graph-worker-barrier.mjs",
+    "test/handoff.test.mjs",
+    "test/hat-catalog-sources.test.mjs",
+    "test/hat-composition-projection.test.mjs",
+    "test/hat-discovery.test.mjs",
+    "test/hat-package-projection.test.mjs",
+    "test/helpers/public-catalog-fixture.mjs",
+    "test/inference-engine-status-projection.test.mjs",
+    "test/inference-observation.test.mjs",
+    "test/instance-projection.test.mjs",
+    "test/invalidation-buffer.test.mjs",
+    "test/launcher.test.mjs",
+    "test/management-connection.test.mjs",
+    "test/management-failure.test.mjs",
+    "test/management-product-journey.mjs",
+    "test/management-protocol-projection.test.mjs",
+    "test/memory-timeline.test.mjs",
+    "test/model-route-projection.test.mjs",
+    "test/native-source-closure.test.mjs",
+    "test/operation-observation.test.mjs",
+    "test/owned-process-observation.mjs",
+    "test/owner-process-fixture.mjs",
+    "test/physical-feedback-browser.mjs",
+    "test/product-activity-browser.mjs",
+    "test/product-activity-journey.mjs",
+    "test/product-interactions.test.mjs",
+    "test/product-projection-crash-worker.mjs",
+    "test/product-projection-crash.mjs",
+    "test/product-projection-matrix-worker.mjs",
+    "test/product-projection-matrix.mjs",
+    "test/product-projection-state.mjs",
+    "test/product-projections-journey.mjs",
+    "test/product-publication-crash-hook.mjs",
+    "test/product-publication-crash-preload.mjs",
+    "test/product-publication-process.mjs",
+    "test/product-publication.test.mjs",
+    "test/product-root-browser.mjs",
+    "test/product-source-current-browser.mjs",
+    "test/product-source-failures.mjs",
+    "test/product-world-switch.mjs",
+    "test/profile-projection.test.mjs",
+    "test/projection.test.mjs",
+    "test/protocol-contract.test.mjs",
+    "test/public-catalog-fixture.test.mjs",
+    "test/release-verifier.test.mjs",
+    "test/repository-identity.test.mjs",
+    "test/resolution-work-barrier.mjs",
+    "test/role-conversation.test.mjs",
+    "test/role-memory.test.mjs",
+    "test/role-preparation.test.mjs",
+    "test/rpc-policy.test.mjs",
+    "test/runtime-asset-projection.test.mjs",
+    "test/runtime-integration.test.mjs",
+    "test/runtime-projection.test.mjs",
+    "test/sample-digital-twin-browser.mjs",
+    "test/scene-temporal-owner.test.mjs",
+    "test/semantic-graph-acceptance.mjs",
+    "test/semantic-inspection.test.mjs",
+    "test/semantic-views-projection.test.mjs",
+    "test/setup-projection.test.mjs",
+    "test/source-observer.mjs",
+    "test/source-owner-connection.test.mjs",
+    "test/spatial-cli-acceptance.mjs",
+    "test/spatial-navigation-acceptance.mjs",
+    "test/spatial-presentation.test.mjs",
+    "test/transport-foundation.test.mjs",
+    "test/utility-observation.test.mjs",
+    "test/verify-sample-feedback.mjs",
+    "test/vocabulary-presentation.test.mjs",
+    "test/world-choices.test.mjs"
+  ],
+  "example_sources": [],
+  "workflow_definitions": [
+    {
+      "path": ".github/workflows/oss-policy.yml",
+      "jobs": [
+        {
+          "job": "repository-policy",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify repository policy",
+              "run": "python3 .github/oss-policy-check.py",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify policy regression tests",
+              "run": "cd .github && python3 -m unittest discover -s policy-tests",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check policy types",
+              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/registry-consumer.yml",
+      "jobs": [
+        {
+          "job": "public-consumer",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "pnpm/action-setup@f520eceda224fe1a4aed5a2a27a194379a409996",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "condition": null
+            },
+            {
+              "name": "Isolate public registry configuration",
+              "run": ": > \"$RUNNER_TEMP/user.npmrc\"\n: > \"$RUNNER_TEMP/global.npmrc\"\necho \"NPM_CONFIG_USERCONFIG=$RUNNER_TEMP/user.npmrc\" >> \"$GITHUB_ENV\"\necho \"NPM_CONFIG_GLOBALCONFIG=$RUNNER_TEMP/global.npmrc\" >> \"$GITHUB_ENV\"\necho \"NPM_CONFIG_REGISTRY=https://registry.npmjs.org/\" >> \"$GITHUB_ENV\"\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "pnpm install --frozen-lockfile",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "pnpm exec playwright install --with-deps chromium",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "pnpm run test:public",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "pnpm build",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/source-fixtures.yml",
+      "jobs": [
+        {
+          "job": "fixture",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "node --test test/public-catalog-fixture.test.mjs",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+}

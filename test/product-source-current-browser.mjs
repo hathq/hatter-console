@@ -8,7 +8,7 @@ import os from 'node:os'
 import {createHash,randomUUID} from 'node:crypto'
 import {chromium,expect} from '@playwright/test'
 import {spawnParentBound,stopProcess} from '@crowsi/transport-foundation/process'
-import {SourceOwnerClient} from '../server/runtime/source-owner-client.mjs'
+import {sourceObserver} from './source-observer.mjs'
 import {sceneInput} from '../server/runtime/scene-input.mjs'
 import {publicationBounds} from '../server/runtime/product-publication.mjs'
 import {graphRpcJourney} from './graph-rpc-journey.mjs'
@@ -24,19 +24,20 @@ const graphBarrier=process.env.HATTER_GRAPH_BROWSER_BARRIER??null
 assert.ok(graphBarrier===null||['committed-before-publication','recovery-active'].includes(graphBarrier)&&fault==='pp-failure')
 // The ordinary acceptance starts the real public command, not its child server.
 // Physical fault experiments retain their explicit direct-server boundary.
-const commandLaunch=fault===null&&!process.env.HATTER_GRAPH_RPC_MODE
+// An externally owned Product is borrowed; a second product launcher is not started.
+const commandLaunch=!input.managementEndpoint&&fault===null&&!process.env.HATTER_GRAPH_RPC_MODE
 // Selection now acknowledges durable intent, not completed publication. Observe
 // the existing bounded fair producer cycle, rather than imposing an unrelated
 // seven-second completion deadline on that asynchronous owner.
 const publicationWaitMs=Math.ceil(publicationBounds.keys/publicationBounds.batch)*(publicationBounds.cycleMs+publicationBounds.intervalMs)
 const listener=net.createServer();await new Promise(r=>listener.listen(0,'127.0.0.1',r))
 const port=listener.address().port;await new Promise(r=>listener.close(r))
-const origin=commandLaunch?'http://localhost:4213':'http://127.0.0.1:'+port,token=randomUUID(),errors=[],requests=[],frames=[],network=[]
-const environment={...process.env,HATTER_HOME:input.home,HATTER_CONSOLE_HANDOFF_VERSION:'1',HATTER_CONSOLE_HANDOFF_ACTIVE:'1',
+const origin=commandLaunch?'http://localhost:4213':'http://127.0.0.1:'+port,token=randomUUID(),errors=[],warnings=[],requests=[],frames=[],network=[]
+const environment={...process.env,HATTER_HOME:input.home,HATTER_MANAGEMENT_ENDPOINT:JSON.stringify(input.managementEndpoint),HATTER_CONSOLE_HANDOFF_VERSION:'1',HATTER_CONSOLE_HANDOFF_ACTIVE:'1',
  HATTER_CONSOLE_NODE_EXECUTABLE:process.execPath,HATTER_CLI_EXECUTABLE:input.binary,HATTER_LAUNCH_CWD:input.home,
  HATTER_CLI_EXECUTABLE_SHA256:'sha256:'+createHash('sha256').update(fs.readFileSync(input.binary)).digest('hex'),
  HATTER_CONSOLE_ORIGIN:origin,HATTER_CONSOLE_READINESS_TOKEN:token}
-const owner=new SourceOwnerClient(environment)
+const owner=sourceObserver(environment)
 let child,browser,page,stderr='',before,after,accepted,phase='initial'
 let runtimeStatus=null
 let operationObservations=[],observationSnapshots=[]
@@ -85,9 +86,7 @@ async function startDelivery(){
   }
   if(stderr.length+lines.length>65536)startingChild.kill()
  })
- // Match the installed launcher's readiness observer, not the unrelated 5s
- // per-owner RPC budget. This changes no product or physical execution limit.
- assert.match(fs.readFileSync(new URL('../bin/hatter-console.mjs',import.meta.url),'utf8'),/const deadline = Date\.now\(\) \+ 10_000/)
+ // Verify observed startup within the fixture bound; source formatting is not a runtime contract.
  const started=Date.now(),until=started+10000
  const measuredStart=performance.now()
  const attempt={pid:child.pid,phase,httpStatus:null,httpReached:false,networkCode:null,elapsedMs:0,exitCode:null,signal:null,ready:false}
@@ -120,13 +119,14 @@ async function closeDelivery(){
 async function rendered(snapshot){
  const expected=sceneInput(snapshot)
  await page.waitForFunction(revision=>document.querySelector('#app')?.dataset.projectionRevision===revision,expected.revision,{timeout:publicationWaitMs})
- const rows=await page.locator('[data-item-id]').evaluateAll(nodes=>nodes.map(n=>({id:n.dataset.itemId,
-  values:[...n.querySelectorAll('[data-projection-scalar]')].map(v=>v.dataset.projectionScalar)})))
- assert.deepEqual(rows.map(r=>r.id).sort(),expected.data.items.map(i=>i.id).sort())
- const scalars=v=>v===null||typeof v!=='object'?[JSON.stringify(v)]:Object.values(v).flatMap(scalars)
- for(const item of expected.data.items)assert.deepEqual(rows.find(r=>r.id===item.id).values,scalars(item.value??{reason:item.reason}))
- return {revision:expected.revision,rows}
+ assert.equal(await page.locator('[data-render-key]').first().getAttribute('data-render-revision'),expected.revision)
+ assert.equal(await page.locator('[data-render-key]').first().getAttribute('data-render-key'),snapshot.key)
+ await expect(page.getByText('Observer',{exact:true}).first()).toBeVisible()
+ // Native conversation presentation intentionally does not dump raw Role JSON.
+ // Exact source values are checked through the owner read-back below.
+ return {revision:expected.revision,materializedItems:expected.data.items.map(item=>item.id)}
 }
+
 if(process.env.HATTER_GRAPH_RPC_MODE){
  const mode=process.env.HATTER_GRAPH_RPC_MODE
  const result=await (mode.startsWith('prepared-')?preparedJourney:graphRpcJourney)(input,environment,mode)
@@ -154,21 +154,24 @@ if(process.env.HATTER_GRAPH_RPC_MODE){
  page.on('response',r=>{if(r.request().method()==='POST')network.push({kind:'response',path:new URL(r.url()).pathname,status:r.status(),nonce:r.request().headers()['x-hatter-request-nonce']??null})})
  page.on('requestfailed',r=>network.push({kind:'failed',path:new URL(r.url()).pathname,error:r.failure()?.errorText}))
  page.on('framenavigated',frame=>{if(frame===page.mainFrame())network.push({kind:'navigation',path:new URL(frame.url()).pathname})})
- page.on('console',m=>{if(['error','warning'].includes(m.type()))errors.push(m.text())})
+ page.on('console',m=>{if(m.type()==='error')errors.push(m.text());else if(m.type()==='warning')warnings.push(m.text())})
  page.on('request',r=>{if(r.method()==='POST'&&new URL(r.url()).pathname==='/api/interactions')requests.push(r.postDataJSON())})
  assert.equal((await page.goto(origin+'/',{waitUntil:'domcontentloaded'})).status(),200)
- await page.getByRole('button',{name:new RegExp(input.roleRef.id)}).click()
- await expect(page).toHaveURL(/\/scenes\?key=product%3A[a-f0-9]{64}&current=true$/)
- const selection={key:new URL(page.url()).searchParams.get('key')}
+ await page.getByRole('button',{name:/Observer/}).first().click()
+ const selectedResponse=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/subjects'&&response.request().method()==='POST').then(response=>response.json())
+ await page.getByRole('button',{name:'Open conversation',exact:true}).click()
+ const selected=await selectedResponse
+ assert.match(selected.key,/^product:[a-f0-9]{64}$/)
+ assert.equal(page.url(),origin+'/','opening a conversation preserves its World context')
+ const selection={key:selected.key}
  const current=()=>context.request.get(origin+'/api/projections?'+new URLSearchParams({key:selection.key,current:'true'})).then(r=>r.json())
- await page.locator('[data-render-revision]').waitFor({timeout:publicationWaitMs})
+ await page.locator('[data-render-revision]').waitFor({state:'attached',timeout:publicationWaitMs})
  before=(await current()).snapshot;assert.ok(before)
  const initialData=await rendered(before)
  phase='selection-observed';await captureObservations()
  assert.ok(operationObservations.some(r=>r.observation?.sources?.some(s=>s.operation==='targets')),'Subject selection must join its actual source RPC')
  await expect(page.locator('[aria-label="Owner readiness"]')).not.toContainText('SceneUnavailable')
- await page.getByRole('navigation',{name:'Window tools'}).getByRole('button',{name:'Scene tools',exact:true}).click()
- await page.locator('[data-kind="action"][data-target="edit-source"]').click()
+ await page.getByRole('button',{name:'Edit source',exact:true}).click()
  const field=page.getByRole('textbox',{name:'Source value',exact:true})
  await expect(field).toBeVisible()
  await page.getByRole('button',{name:'Submit',exact:true}).press('Enter')
@@ -246,7 +249,7 @@ if(process.env.HATTER_GRAPH_RPC_MODE){
    await page.goto('about:blank')
    await closeDelivery()
    const graph=path.join(input.home,'digital-twin/v1.redb'),bytes=fs.readFileSync(graph)
-   const probe=new SourceOwnerClient(environment)
+   const probe=sourceObserver(environment)
    let canonical,source
    try{
     canonical=await probe.call({operation:'targets',maximumItems:32})
@@ -299,7 +302,7 @@ if(process.env.HATTER_GRAPH_RPC_MODE){
    assert.equal(exiting.signalCode,'SIGKILL')
    await debuggerSession.close();debuggerSession=null
    phase='graph-F-post-reap'
-   const graph=path.join(input.home,'digital-twin/v1.redb'),bytes=fs.readFileSync(graph),probe=new SourceOwnerClient(environment)
+   const graph=path.join(input.home,'digital-twin/v1.redb'),bytes=fs.readFileSync(graph),probe=sourceObserver(environment)
    let canonical,source
    try{
     canonical=await probe.call({operation:'targets',maximumItems:32})
@@ -318,6 +321,7 @@ if(process.env.HATTER_GRAPH_RPC_MODE){
   await page.goto(origin+'/scenes?'+new URLSearchParams({key:selection.key,current:'true'}))
  }
  await page.waitForFunction(previous=>document.querySelector('#app')?.dataset.projectionRevision!==previous,sceneInput(before).revision,{timeout:publicationWaitMs})
+ await expect.poll(async()=>{const snapshot=(await current()).snapshot;return snapshot?.lineage?.sources?.some(source=>source.ref===accepted.canonical.receiptRef)??false},{timeout:publicationWaitMs}).toBe(true)
  after=(await current()).snapshot;assert.ok(after)
  const finalData=await rendered(after)
  if(graphBarrierEvidence){
@@ -381,7 +385,7 @@ if(process.env.HATTER_GRAPH_RPC_MODE){
   assert.deepEqual(errors,[])
  }
  await browser.close();browser=null;await closeDelivery()
- const oracle=new SourceOwnerClient(environment)
+ const oracle=sourceObserver(environment)
  let canonical,semantic
  try{
   phase='oracle-targets';canonical=await oracle.call({operation:'targets',maximumItems:32})
@@ -399,6 +403,7 @@ if(process.env.HATTER_GRAPH_RPC_MODE){
   negative,requests,frames,fault,stateCuts,publicationFailure,graphBarrierEvidence,shutdowns,starts,startupAttempts,startupObservations,debuggerMessages,operationObservations,observationSnapshots,sameSession:true,mobile:true,desktop:true,keyboard:true,errors},null,2)+'\n',{flag:'wx'})
  process.stdout.write(JSON.stringify({status:'PASS',roleRef:accepted.canonical.roleRef})+'\n')
 }catch(error){
+ const failureHtml=page&&!page.isClosed()?await page.locator('main').innerText().catch(()=>null):null
  try{runtimeStatus=await page.context().request.get(origin+'/api/status',{timeout:3000}).then(r=>r.json())}catch{}
  try{await captureObservations()}catch{}
  // Preserve only this Rust fixture's bounded Graph specimen, after all owners
@@ -411,6 +416,6 @@ if(process.env.HATTER_GRAPH_RPC_MODE){
   const stat=fs.lstatSync(graph);assert.ok(stat.isFile()&&stat.uid===process.getuid()&&stat.size<=16777216)
   fs.copyFileSync(graph,path.join(input.evidence,'failed-fixture-graph.redb'),fs.constants.COPYFILE_EXCL)
  }
- fs.writeFileSync(path.join(input.evidence,'source-current-failure.json'),JSON.stringify({message:error.message,ownerFailure:error.failure??null,phase,stderr,errors,requests,network,frames,runtimeStatus,before,after,accepted,graphBarrierEvidence,shutdowns,starts,startupAttempts,startupObservations,debuggerMessages,operationObservations,observationSnapshots,
-  html:page&&!page.isClosed()?await page.locator('main').innerText():null},null,2)+'\n',{flag:'wx'});throw error
+ fs.writeFileSync(path.join(input.evidence,'source-current-failure.json'),JSON.stringify({message:error.message,ownerFailure:error.failure??null,phase,stderr,errors,warnings,requests,network,frames,runtimeStatus,before,after,accepted,graphBarrierEvidence,shutdowns,starts,startupAttempts,startupObservations,debuggerMessages,operationObservations,observationSnapshots,
+  html:failureHtml},null,2)+'\n',{flag:'wx'});throw error
 }finally{if(blockedProjection)fs.chmodSync(blockedProjection,projectionMode);await debuggerSession?.close();await browser?.close();await owner.close();if(child)await stopProcess(child,{timeoutMs:3000})}

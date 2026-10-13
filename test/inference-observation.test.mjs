@@ -12,7 +12,7 @@ test('local inference display uses exact scheduler kinds, preserves blocked/rese
  assert.equal(result.roles.length,10);assert.equal(result.physicalProgress,'not-observed');assert.deepEqual(result.revision,input.controlRevision)
  for(const [i,work]of result.roles.slice(0,6).entries()){
   assert.deepEqual(work.scopeRef,works['r'+i].spec.scopeRef);assert.equal(work.acceptedSequence,i+1)
-  assert.equal(work.processRef,'process');assert.equal(work.sourceReceiptRef,'receipt');assert.equal(work.inputAvailable,i!==1)
+  assert.equal(work.execution.processRef,'process');assert.equal(work.sourceReceiptRef,'receipt');assert.equal(work.inputAvailable,i!==1)
   assert.deepEqual(work.detail,typeof states[i]==='string'?null:Object.values(states[i])[0])
  }
  for(const kind of ['resolution','invocation','operation','technical']){
@@ -30,4 +30,15 @@ test('local inference display uses exact scheduler kinds, preserves blocked/rese
  runtime.rpc=()=>{calls++;return new Promise(resolve=>finish=resolve)}
  const a=runtime.workObservation(),b=runtime.workObservation();assert.equal(calls,1);finish(input);assert.equal(await a,await b);assert.equal(runtime.workRead,null)
  runtime.rpc=async()=>{throw Error('Unavailable')};await assert.rejects(runtime.workObservation(),/Unavailable/);assert.equal(runtime.workRead,null)
+})
+
+test('operation work keeps its exact execution reference and emits no undefined aliases',()=>{
+ const work={spec:{requestRef:'operation',roleRef:{id:'role'},scopeRef:{id:'scope',revision:1},sourceReceiptRef:'receipt',prerequisite:null,
+  execution:{kind:'operation',requestRef:{ownerId:'fixture',reference:'test-only',schemaId:'fixture/reference',digestSha256:'a'.repeat(64)}}},
+  acceptedSequence:1,inputAvailable:false,state:'Cancelled'}
+ const result=inferenceObservation({scheduler:{works:{operation:work}},driver:{phase:'idle'},controlRevision:{sequence:1,commit:null}})
+ assert.deepEqual(result.roles[0].execution,work.spec.execution)
+ assert.equal(Object.hasOwn(result.roles[0],'runtimeRef'),false)
+ assert.equal(Object.hasOwn(result.roles[0],'processRef'),false)
+ assert.deepEqual(JSON.parse(JSON.stringify(result)),result)
 })

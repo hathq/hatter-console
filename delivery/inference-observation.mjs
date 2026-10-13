@@ -11,8 +11,7 @@ export function inferenceObservation(value){
   if(!['inference','resolution','invocation','operation','technical'].includes(kind))fail()
   const state=typeof work.state==='string'?work.state:Object.keys(work.state??{}).length===1?Object.keys(work.state)[0]:null
   if(!Object.hasOwn(counts,state)||!work.spec.roleRef?.id)fail()
-  counts[state]++;roles.push({roleRef:work.spec.roleRef,state,kind,execution:work.spec.execution,requestRef:work.spec.requestRef,runtimeRef:work.spec.execution.runtimeRef,
-   processRef:work.spec.execution.processRef,scopeRef:work.spec.scopeRef,sourceReceiptRef:work.spec.sourceReceiptRef,
+  counts[state]++;roles.push({roleRef:work.spec.roleRef,state,kind,execution:work.spec.execution,requestRef:work.spec.requestRef,scopeRef:work.spec.scopeRef,sourceReceiptRef:work.spec.sourceReceiptRef,
    prerequisite:work.spec.prerequisite,acceptedSequence:work.acceptedSequence,inputAvailable:work.inputAvailable,
    detail:typeof work.state==='string'?null:work.state[state]})
  }
