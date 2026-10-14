@@ -35,8 +35,8 @@
     "@hathq/ihat-store-scenes": "0.10.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.62.1",
-    "esbuild": "0.28.1"
+    "@playwright/test": "1.64.0",
+    "esbuild": "0.28.2"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
