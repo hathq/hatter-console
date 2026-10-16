@@ -15,38 +15,38 @@ importers:
         specifier: 0.10.0
         version: 0.10.0
       '@hathq/delivery-client':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.1
+        version: 0.10.1
       '@hathq/delivery-contracts':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.1
+        version: 0.10.1
       '@hathq/delivery-server':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.1
+        version: 0.10.1
       '@hathq/ihat-store-core':
         specifier: 0.10.0
         version: 0.10.0
       '@hathq/ihat-store-scenes':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.1
+        version: 0.10.1
       '@hathq/ihat-store-source':
         specifier: 0.10.0
         version: 0.10.0
       '@zixcel/dom-renderer':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.3
+        version: 0.10.3
       '@zixcel/interaction':
         specifier: 0.10.1
         version: 0.10.1
       '@zixcel/projection-client':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.3
+        version: 0.10.3
       '@zixcel/projection-contracts':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.3
+        version: 0.10.3
       '@zixcel/projection-runtime':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.3
+        version: 0.10.3
     devDependencies:
       '@playwright/test':
         specifier: 1.64.0
@@ -221,21 +221,21 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@hathq/delivery-client@0.10.0':
-    resolution: {integrity: sha512-F4w6nOlvdYiHz+EA7qN4MUridf63O/jLiC2DR68Q9Cav3Xj+ESGy94Q4PSdvE5NxIDi58mJyWw+Qmbs0grJyAA==}
+  '@hathq/delivery-client@0.10.1':
+    resolution: {integrity: sha512-xvyF47pZkwYSXzLWB+0H6HyN25Jx6n943UHWOsXkGcKzFE7ygIWWE9VTmepXtAM2370zFUsYLAk+rYQ5e3zeIw==}
 
-  '@hathq/delivery-contracts@0.10.0':
-    resolution: {integrity: sha512-A0r/eWtXH1s4nNBY5wnxfNEzbQwa8GGkM75kKTpaMmBLGIjnZ0/+sNwF44eYYL+ZySeorq+CaW9urmmS/sE/gg==}
+  '@hathq/delivery-contracts@0.10.1':
+    resolution: {integrity: sha512-6tDzjWy4LH3B2CNb1qOzGF2p3hiK7feTFe2LaynC+HEehrzW0Tu2jvlqFrtHc8VrWM7qktNi737O14MT67FDdA==}
 
-  '@hathq/delivery-server@0.10.0':
-    resolution: {integrity: sha512-vgI9ALou4xYd8taIjbjxsYx1+ePTEKhG0S3IVVThCAc7a2xttKmK02dwQqKpPULeYuZi2sGikNPbtcbzr0j/SA==}
+  '@hathq/delivery-server@0.10.1':
+    resolution: {integrity: sha512-9D30u/fbtXCfp2BRaGTIav0WHx0RTRYP/gQgCHP2n17WoXuur8thsaYuhwYizuYwaDPm6UCRkGKdcYsxqYB1Mg==}
 
   '@hathq/ihat-store-core@0.10.0':
     resolution: {integrity: sha512-pbkqCNpcmSAQOx+H6MYcA2qy26RGaSzXSnA1CrhwspD5eDiRcnnWndc+fWSyH6OjuP8eXa+Zr3ZEH7Pu+YH2dA==}
     engines: {node: '>=22'}
 
-  '@hathq/ihat-store-scenes@0.10.0':
-    resolution: {integrity: sha512-sF77Ss0iej5C1cvKRaiNiFM95ZRxreWjLm+zJM8n8yvRGm10Y48EJTK+sgXmmtAZdJckW1BYE6zCxJpmt7j7Qw==}
+  '@hathq/ihat-store-scenes@0.10.1':
+    resolution: {integrity: sha512-Z4E8ZboDNCc7WHhEL/ehLVpbLmHwfmkpX0MfbAFAFWWMMe8qz1dVJX8O4wJ75FH7lDwNWHKZEIN3JsRVfLwZ8w==}
 
   '@hathq/ihat-store-source@0.10.0':
     resolution: {integrity: sha512-+kaqTsk5ZPupDX0oXNlwQOc7NCmEzSUAV01snd9HPTeFXYzYafiHUdUWoxrupM2BuPPIEEf3aJuCGblE3nR8MA==}
@@ -252,18 +252,28 @@ packages:
   '@zixcel/dom-renderer@0.10.0':
     resolution: {integrity: sha512-4n4WXMKfZjZQFa80z4RUmmQ5L+J4Dzafsa4uAHhlivDBAFZ62QMfIZy2q6XafCucCwWdryfSQ/kI/QbA2zeQlA==}
 
+  '@zixcel/dom-renderer@0.10.3':
+    resolution: {integrity: sha512-bk0EBhdtdVt7/iKpisA9m6gDEHdoHxdXvv11g2G7PLHoeVmazK0HzGsYdPXT0e2+N/jWNkwqT2CitSzkJPoabg==}
+
   '@zixcel/interaction@0.10.1':
     resolution: {integrity: sha512-irtb3FhlM2g13wWlPcroTFCXB36O7a6KS/HqWSGRY7Snys8PA9cO+qTlcdKrzwMQ+xoPHHFPbq/AMuasoTN+bg==}
 
   '@zixcel/projection-client@0.10.0':
     resolution: {integrity: sha512-CS9BBy8Su03AvUJgpPUWmkuzRJmvVyk5s5Wl31h3R4wlezAp4ZKbKyC/N4bf/18rCSBViyY+9hNZ/KrCVo4oFQ==}
 
+  '@zixcel/projection-client@0.10.3':
+    resolution: {integrity: sha512-mE2fldl6WLWvxTMwaiglb/qLR8wyn4t+LigJiCvWxSxNuMyTj4qIGCRp+aHxDJ1SIT+Jmy9aan+hE1qyf020TQ==}
+
   '@zixcel/projection-contracts@0.10.0':
     resolution: {integrity: sha512-6dnTIrV1KgeEY4cUedDFrawrER36Mrj+fiOBYEUp5UTVtmbzsfiJoNDxxDTxrVgFtPgMiDZj6gwYJ13a7P4uyQ==}
     engines: {node: '>=22'}
 
-  '@zixcel/projection-runtime@0.10.0':
-    resolution: {integrity: sha512-Hv6//rDhy63B7xx4ohaJ3pgHEb/Qpe8BPME36jaRNODb62UJJKqsQ6AU9t51dehEJwGrgUG0ZBUWmdVVDzKuQA==}
+  '@zixcel/projection-contracts@0.10.3':
+    resolution: {integrity: sha512-/e6iJFvZc/9ZoZXSxjEZfm67BYR8pZ342GVO2BASsJDAkRwOS+hsrdb9GW+5oTWTp1o9wmkt3un1uxo3WYVEVw==}
+    engines: {node: '>=22'}
+
+  '@zixcel/projection-runtime@0.10.3':
+    resolution: {integrity: sha512-ud7MzyV3KYgnWifgUGz1nZZaZ9Rpyz6lRZv6FMOo9UM98eXBYB58j0lN9CuCXgg/IRLCuCeNicuRWuAinogLXg==}
     engines: {node: '>=22'}
 
   '@zixcel/view-delivery-contracts@0.10.0':
@@ -392,19 +402,19 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@hathq/delivery-client@0.10.0':
+  '@hathq/delivery-client@0.10.1':
     dependencies:
       '@crowsi/transport-foundation': 0.10.0
-      '@hathq/delivery-contracts': 0.10.0
+      '@hathq/delivery-contracts': 0.10.1
       '@zixcel/dom-renderer': 0.10.0
       '@zixcel/projection-client': 0.10.0
       '@zixcel/projection-contracts': 0.10.0
 
-  '@hathq/delivery-contracts@0.10.0':
+  '@hathq/delivery-contracts@0.10.1':
     dependencies:
       '@zixcel/view-delivery-contracts': 0.10.0
 
-  '@hathq/delivery-server@0.10.0':
+  '@hathq/delivery-server@0.10.1':
     dependencies:
       '@zixcel/view-delivery': 0.10.0
     transitivePeerDependencies:
@@ -413,7 +423,7 @@ snapshots:
 
   '@hathq/ihat-store-core@0.10.0': {}
 
-  '@hathq/ihat-store-scenes@0.10.0':
+  '@hathq/ihat-store-scenes@0.10.1':
     dependencies:
       '@hathq/ihat-store-core': 0.10.0
       '@zixcel/projection-contracts': 0.10.0
@@ -436,20 +446,35 @@ snapshots:
       '@zixcel/projection-client': 0.10.0
       three: 0.186.0
 
+  '@zixcel/dom-renderer@0.10.3':
+    dependencies:
+      '@zixcel/interaction': 0.10.1
+      '@zixcel/projection-client': 0.10.3
+      three: 0.186.0
+
   '@zixcel/interaction@0.10.1': {}
 
   '@zixcel/projection-client@0.10.0':
     dependencies:
       '@zixcel/projection-contracts': 0.10.0
 
+  '@zixcel/projection-client@0.10.3':
+    dependencies:
+      '@zixcel/projection-contracts': 0.10.3
+
   '@zixcel/projection-contracts@0.10.0':
     dependencies:
       '@zixcel/interaction': 0.10.1
       ohash: 2.0.11
 
-  '@zixcel/projection-runtime@0.10.0':
+  '@zixcel/projection-contracts@0.10.3':
     dependencies:
-      '@zixcel/projection-contracts': 0.10.0
+      '@zixcel/interaction': 0.10.1
+      ohash: 2.0.11
+
+  '@zixcel/projection-runtime@0.10.3':
+    dependencies:
+      '@zixcel/projection-contracts': 0.10.3
 
   '@zixcel/view-delivery-contracts@0.10.0':
     dependencies:

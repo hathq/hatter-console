@@ -20,19 +20,19 @@
     "test:owner-source": "node --test test/management-protocol-projection.test.mjs test/protocol-contract.test.mjs test/repository-identity.test.mjs test/rpc-policy.test.mjs"
   },
   "dependencies": {
-    "@hathq/delivery-server": "0.10.0",
-    "@hathq/delivery-client": "0.10.0",
-    "@hathq/delivery-contracts": "0.10.0",
-    "@zixcel/dom-renderer": "0.10.0",
-    "@zixcel/projection-contracts": "0.10.0",
-    "@zixcel/projection-client": "0.10.0",
-    "@zixcel/projection-runtime": "0.10.0",
+    "@hathq/delivery-server": "0.10.1",
+    "@hathq/delivery-client": "0.10.1",
+    "@hathq/delivery-contracts": "0.10.1",
+    "@zixcel/dom-renderer": "0.10.3",
+    "@zixcel/projection-contracts": "0.10.3",
+    "@zixcel/projection-client": "0.10.3",
+    "@zixcel/projection-runtime": "0.10.3",
     "@crowsi/transport-foundation": "0.10.0",
     "@crowsi/browser-security": "0.10.0",
     "@zixcel/interaction": "0.10.1",
     "@hathq/ihat-store-core": "0.10.0",
     "@hathq/ihat-store-source": "0.10.0",
-    "@hathq/ihat-store-scenes": "0.10.0"
+    "@hathq/ihat-store-scenes": "0.10.1"
   },
   "devDependencies": {
     "@playwright/test": "1.64.0",
